@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szukaj — Osobny Swiat</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <span>Wtorek, 21 kwietnia 2026</span>
+    <div class="header-tags">
+      <span>Filozofia</span><span>Literatura</span><span>Refleksja</span>
+    </div>
+  </div>
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <span class="masthead-label">Rok Norwidowski Zawsze</span>
+      <div class="masthead-issue">Widziane ze Strachowki<br>od 2016 roku</div>
+    </div>
+    <a href="../index.html" class="masthead-name">Osobny Swiat</a>
+    <p class="masthead-tagline">Filozofia, wiara, wiersze i mysli — pisane codziennie od lat</p>
+    <nav class="sitenav">
+      <a href="../index.html" >Teksty</a>
+      <a href="../archiwum/index.html" >Archiwum</a>
+      <a href="../search/index.html" class='active'>Szukaj</a>
+      <a href="../universe/index.html" >Swiat slow</a>
+      <a href="../universe/timeline.html" >Os czasu</a>
+    </nav>
+  </div>
+</header>
+
+
+
+<div class="page-wrap">
+  
+    
+    <div style="padding: 3rem 0 4rem">
+      <input type="text" id="search-big" placeholder="Szukaj w tekstach..." autocomplete="off">
+      <div id="search-results"></div>
+      <div id="no-results" style="display:none;color:#9a9590;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-style:italic">
+        Nie znaleziono wynikow.
+      </div>
+    </div>
+  
+  
+</div>
+
+
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand">Osobny Swiat</span>
+      <span class="footer-tagline">Widziane ze Strachowki</span>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">Strona glowna</a>
+      <a href="../archiwum/index.html">Archiwum</a>
+      <a href="../search/index.html">Szukaj</a>
+      <a href="https://strachowka.blogspot.com" target="_blank">Oryginalny blog</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Jozef Kapaon<br>osobnyswiat.pl</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.yr-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var items = this.nextElementSibling;
+    var ch = this.querySelector('.yr-ch');
+    items.classList.toggle('open');
+    if (ch) ch.classList.toggle('open');
+  });
+});
+var yr = new Date().getFullYear().toString();
+document.querySelectorAll('.yr-row').forEach(function(row) {
+  if (row.dataset.year === yr) row.click();
+});
+</script>
+<script>
+(function() {
+  var input = document.getElementById('search-big');
+  var results = document.getElementById('search-results');
+  var noRes = document.getElementById('no-results');
+  var posts = [];
+  var timer;
+
+  function loadIndex() {
+    fetch('../search-index.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ posts = d; })
+      .catch(function(){
+        fetch('search-index.json')
+          .then(function(r){ return r.json(); })
+          .then(function(d){ posts = d; });
+      });
+  }
+  loadIndex();
+
+  function hl(text, q) {
+    var escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark>$1</mark>');
+  }
+
+  function doSearch(q) {
+    q = q.trim();
+    results.innerHTML = '';
+    if (!q || q.length < 2) { noRes.style.display = 'none'; return; }
+    var ql = q.toLowerCase();
+    var matched = posts.filter(function(p){
+      return p.title.toLowerCase().indexOf(ql) >= 0 || p.excerpt.toLowerCase().indexOf(ql) >= 0;
+    }).slice(0, 30);
+    if (!matched.length) { noRes.style.display = 'block'; return; }
+    noRes.style.display = 'none';
+    matched.forEach(function(p) {
+      var d = document.createElement('div');
+      d.className = 'sr';
+      d.innerHTML = '<div class="sr-date">' + p.date + '</div>' +
+        '<h3><a href="../posts/' + p.slug + '.html">' + hl(p.title, q) + '</a></h3>' +
+        '<p>' + hl(p.excerpt, q) + '</p>';
+      results.appendChild(d);
+    });
+  }
+
+  if (input) {
+    input.addEventListener('input', function() {
+      clearTimeout(timer);
+      var v = this.value;
+      timer = setTimeout(function(){ doSearch(v); }, 250);
+    });
+  }
+})();
+</script></body>
+</html>

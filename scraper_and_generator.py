@@ -445,6 +445,8 @@ def html_page(title, content, *, css_path="", nav_active="",
       <a href="{css_path}index.html" {"class='active'" if nav_active=='home' else ''}>Teksty</a>
       <a href="{css_path}archiwum/index.html" {"class='active'" if nav_active=='archiwum' else ''}>Archiwum</a>
       <a href="{css_path}search/index.html" {"class='active'" if nav_active=='search' else ''}>Szukaj</a>
+      <a href="{css_path}universe/index.html" {"class='active'" if nav_active=='universe' else ''}>Swiat slow</a>
+      <a href="{css_path}universe/timeline.html" {"class='active'" if nav_active=='timeline' else ''}>Os czasu</a>
     </nav>
   </div>
 </header>
@@ -760,10 +762,266 @@ def build_site(posts):
     page = page.replace("</body>", f"<script>{SEARCH_JS}</script></body>")
     (OUTPUT_DIR / "search" / "index.html").write_text(page, encoding="utf-8")
 
+    # ── Word cloud data ───────────────────────────────────────
+    print("Analysing word frequencies...")
+    (OUTPUT_DIR / "universe").mkdir(exist_ok=True)
+
+    # Polish stopwords to exclude
+    stopwords = {
+        "i","w","z","na","do","nie","to","sie","jest","ze","ale","jak","co","po",
+        "by","tak","go","jej","jego","ich","im","nas","nam","pan","czy","ten","ta",
+        "te","tego","tej","tych","tym","temu","przez","przy","dla","od","o","a",
+        "bo","no","juz","tu","tam","sobie","tylko","jestem","bylo","jest","byly",
+        "mnie","mam","mi","my","ja","ty","on","ona","ono","oni","one","pan","pani",
+        "tego","tych","tylko","juz","jeszcze","tez","rowniez","jednak","ale","lecz",
+        "wiec","dlatego","ktory","ktora","ktore","ktorzy","ktorych","ktorym","choc",
+        "chociaz","kiedy","gdy","jesli","jezeli","aby","zeby","ze","iz","ze","ze",
+        "moze","mozna","mozemy","mozecie","moga","wszystko","wszystkich","wszystkim",
+        "wszystkie","bardzo","bardziej","najbardziej","jaki","jaka","jakie","jacy",
+        "tego","taka","takie","takiej","takim","taki","tyle","tez","juz","sobie",
+        "czego","czemu","czym","czym","tego","tego","moj","moja","moje","moich",
+        "swoj","swoja","swoje","swoich","swoim","swoją","swoją",
+        "on","ona","oni","one","ono","ich","im","je","go","mu","jej","nas","nam",
+        "was","wam","sie","sie","to","tak","nie","juz","juz","czy","czy","ale",
+        "bo","bo","a","w","i","z","na","do","od","po","za","przed","nad","pod",
+        "przy","dla","przez","bez","mimo","wedlug","wobec","wokol","okolo",
+        "cos","ktos","nikt","nic","kazdy","kazda","kazde","jeden","jedna","jedno",
+        "dwa","dwie","trzej","trzech","trzy","cztery","piec",
+        "ktory","ktora","które","który","która","które",
+    }
+
+    from collections import Counter
+    word_freq = Counter()
+    post_dates = {}
+
+    for p in posts_sorted:
+        text = strip_html(p["content"] + " " + p["title"])
+        text = text.lower()
+        # Remove punctuation
+        text = re.sub(r"[^\w\s]", " ", text)
+        words_in_post = text.split()
+        for w in words_in_post:
+            w = w.strip()
+            if len(w) >= 4 and w not in stopwords and not w.isdigit():
+                word_freq[w] += 1
+        # Track year → post count
+        year = p["published"][:4] if p["published"] else "?"
+        post_dates[year] = post_dates.get(year, 0) + 1
+
+    # Top 60 words, excluding very generic ones
+    extra_stop = {"jest","bylo","bedzie","mozna","mozemy","ktory","ktora","moze",
+                  "chce","chcę","chcial","tego","tych","sobie","przez","przy",
+                  "mnie","moje","moja","swoje","swojej","swoim","swojego",
+                  "jestem","bylem","bylas","byliśmy","bylas","będzie","było",
+                  "tego","taki","takie","takiej","takim","innym","innej","inne",
+                  "każdy","każda","każde","każdej","każdym","każdego",
+                  "bardziej","jednak","właśnie","właśnie","więc","ktore","które"}
+
+    top_words = [
+        {"text": w, "count": c}
+        for w, c in word_freq.most_common(200)
+        if w not in extra_stop and len(w) >= 4
+    ][:60]
+
+    # Posts per year for timeline bar chart
+    years_data = sorted(post_dates.items())
+
+    # Save as JSON for the pages to use
+    universe_data = {
+        "words": top_words,
+        "years": [{"year": y, "count": c} for y, c in years_data],
+        "total_posts": len(posts_sorted),
+        "total_words": sum(word_freq.values()),
+    }
+    (OUTPUT_DIR / "universe" / "data.json").write_text(
+        json.dumps(universe_data, ensure_ascii=False), encoding="utf-8"
+    )
+
+    # ── Word cloud page ───────────────────────────────────────
+    print("Building word cloud page...")
+
+    word_cloud_js = """
+const CAT_COLORS = {
+  default: '#2d4a3e',
+  alt1: '#8a4f20',
+  alt2: '#4a3580',
+  alt3: '#1a4a6b',
+  alt4: '#6b2020',
+};
+
+fetch('data.json').then(r => r.json()).then(data => {
+  const words = data.words;
+  const totalPosts = data.total_posts;
+  const totalWords = data.total_words;
+
+  document.getElementById('stat-posts').textContent = totalPosts.toLocaleString('pl-PL');
+  document.getElementById('stat-words').textContent = Math.round(totalWords / 1000) + 'k';
+  document.getElementById('stat-unique').textContent = words.length + '+';
+
+  const container = document.getElementById('wc-container');
+  const W = container.offsetWidth;
+  const H = 460;
+  container.style.height = H + 'px';
+  container.style.position = 'relative';
+  container.style.overflow = 'hidden';
+
+  const maxCount = words[0].count;
+  const placed = [];
+  const colors = Object.values(CAT_COLORS);
+
+  function overlaps(a, b) {
+    return !(a.r < b.l || a.l > b.r || a.b < b.t || a.t > b.b);
+  }
+
+  words.forEach(function(w, i) {
+    var fontSize = Math.round(12 + (w.count / maxCount) * 40);
+    var cx = W / 2, cy = H / 2;
+    var placed_pos = null;
+
+    for (var attempt = 0; attempt < 800; attempt++) {
+      var angle = attempt * 2.399;
+      var r = Math.sqrt(attempt) * 16;
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle);
+      var pw = fontSize * w.text.length * 0.58;
+      var ph = fontSize * 1.3;
+      var box = { l: x - pw/2, r: x + pw/2, t: y - ph/2, b: y + ph/2 };
+      if (box.l < 4 || box.r > W-4 || box.t < 4 || box.b > H-4) continue;
+      if (!placed.some(function(p) { return overlaps(p, box); })) {
+        placed.push(box);
+        placed_pos = { x: x, y: y };
+        break;
+      }
+    }
+
+    if (!placed_pos) return;
+
+    var el = document.createElement('span');
+    el.textContent = w.text;
+    el.style.cssText = [
+      'position:absolute',
+      'font-family:Playfair Display,serif',
+      'font-size:' + fontSize + 'px',
+      'color:' + colors[i % colors.length],
+      'opacity:' + (0.45 + (w.count / maxCount) * 0.55),
+      'left:' + placed_pos.x + 'px',
+      'top:' + placed_pos.y + 'px',
+      'transform:translate(-50%,-50%)',
+      'cursor:pointer',
+      'transition:opacity 0.2s',
+      'white-space:nowrap',
+      'user-select:none',
+    ].join(';');
+
+    el.title = w.text + ' — ' + w.count.toLocaleString('pl-PL') + ' wystąpień';
+    el.onmouseenter = function() { this.style.opacity = '1'; };
+    el.onmouseleave = function() { this.style.opacity = (0.45 + (w.count / maxCount) * 0.55).toString(); };
+    el.onclick = function() {
+      window.location.href = '../search/index.html?q=' + encodeURIComponent(w.text);
+    };
+    container.appendChild(el);
+  });
+});
+"""
+
+    word_cloud_content = """
+<div style="padding: 3rem 0 4rem">
+  <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:2.5rem;letter-spacing:-0.02em;margin-bottom:0.5rem">Swiat slow</h1>
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;color:#9a9590;margin-bottom:2.5rem">Najczestsze slowa i tematy ze wszystkich tekstow. Kliknij slowo by przeszukac blog.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem">
+    <div style="background:#f0ece2;border:0.5px solid #d4cec4;border-radius:8px;padding:1.25rem 1.5rem">
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#9a9590;margin-bottom:0.4rem">Wszystkich tekstow</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#1c1916" id="stat-posts">—</div>
+    </div>
+    <div style="background:#f0ece2;border:0.5px solid #d4cec4;border-radius:8px;padding:1.25rem 1.5rem">
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#9a9590;margin-bottom:0.4rem">Slow lacznie</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#1c1916" id="stat-words">—</div>
+    </div>
+    <div style="background:#f0ece2;border:0.5px solid #d4cec4;border-radius:8px;padding:1.25rem 1.5rem">
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#9a9590;margin-bottom:0.4rem">Unikalnych slow</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#1c1916" id="stat-unique">—</div>
+    </div>
+  </div>
+
+  <div id="wc-container" style="background:#faf8f3;border:0.5px solid #d4cec4;border-radius:12px;"></div>
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:#9a9590;margin-top:1rem;text-align:center">Rozmiar slowa odpowiada czestotliwosci wystepowania w tekstach</p>
+</div>
+"""
+    page = html_page("Swiat slow", word_cloud_content, css_path="../")
+    page = page.replace("</body>", f"<script>{word_cloud_js}</script></body>")
+    (OUTPUT_DIR / "universe" / "index.html").write_text(page, encoding="utf-8")
+
+    # ── Timeline page ─────────────────────────────────────────
+    print("Building timeline page...")
+
+    timeline_js = """
+fetch('data.json').then(r => r.json()).then(data => {
+  var years = data.years;
+  var maxCount = Math.max.apply(null, years.map(function(y){ return y.count; }));
+  var container = document.getElementById('year-bars');
+
+  years.forEach(function(y) {
+    var pct = Math.round((y.count / maxCount) * 100);
+    var bar = document.createElement('div');
+    bar.style.cssText = 'display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem';
+    bar.innerHTML = '<span style="font-family:DM Sans,sans-serif;font-size:0.72rem;color:#9a9590;width:2.5rem;text-align:right;flex-shrink:0">' + y.year + '</span>' +
+      '<div style="flex:1;background:#f0ece2;border-radius:2px;height:18px;position:relative">' +
+        '<div style="background:#2d4a3e;height:100%;width:' + pct + '%;border-radius:2px;transition:width 0.6s ease"></div>' +
+        '<span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:DM Sans,sans-serif;font-size:0.68rem;color:#9a9590">' + y.count + '</span>' +
+      '</div>';
+    container.appendChild(bar);
+  });
+});
+"""
+
+    # Historical events to overlay on the timeline
+    events = [
+        ("1978", "Wybór Jana Pawła II", "world"),
+        ("1980", "Narodziny Solidarności", "world"),
+        ("1981", "Stan wojenny", "world"),
+        ("1989", "Upadek komunizmu", "world"),
+        ("2005", "Śmierć Jana Pawła II", "world"),
+        ("2016", "Początek bloga", "personal"),
+        ("2022", "Inwazja Rosji na Ukrainę", "world"),
+        ("2023", "Era AI — ChatGPT", "world"),
+    ]
+
+    events_html = ""
+    for year, event, etype in events:
+        color = "#8a4f20" if etype == "personal" else "#1a4a6b"
+        events_html += f"""
+        <div style="display:flex;align-items:baseline;gap:1rem;padding:0.75rem 0;border-bottom:0.5px solid #e8e2d8">
+          <span style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:{color};width:3rem;flex-shrink:0">{year}</span>
+          <span style="font-family:'Crimson Pro',serif;font-size:1rem;color:#2e2b27">{event}</span>
+        </div>"""
+
+    timeline_content = f"""
+<div style="padding: 3rem 0 4rem">
+  <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:2.5rem;letter-spacing:-0.02em;margin-bottom:0.5rem">Os czasu</h1>
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;color:#9a9590;margin-bottom:3rem">Pisanie na tle historii — kazdy slupek to rok, kazdy rok to setki tekstow.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:4rem;align-items:start">
+    <div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9590;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #d4cec4">Teksty na rok</div>
+      <div id="year-bars"></div>
+    </div>
+    <div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9590;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #d4cec4">Wielkie wydarzenia</div>
+      {events_html}
+    </div>
+  </div>
+</div>
+"""
+    page = html_page("Os czasu", timeline_content, css_path="../")
+    page = page.replace("</body>", f"<script>{timeline_js}</script></body>")
+    (OUTPUT_DIR / "universe" / "timeline.html").write_text(page, encoding="utf-8")
+
     print(f"\n Site built successfully in ./{OUTPUT_DIR}/")
-    print(f"   Posts:  {len(posts_sorted)}")
-    print(f"   Pages:  {len(pages)} index pages")
-    print(f"\nNext step: drag the '{OUTPUT_DIR}' folder to https://app.netlify.com/drop")
+    print(f"   Posts:    {len(posts_sorted)}")
+    print(f"   Pages:    {len(pages)} index pages")
+    print(f"   Universe: word cloud + timeline generated")
+    print(f"\nNext step: commit to GitHub and the site will deploy automatically tonight")
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
