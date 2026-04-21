@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria — Osobny Swiat</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <span>Wtorek, 21 kwietnia 2026</span>
+    <div class="header-tags">
+      <span>Filozofia</span><span>Literatura</span><span>Refleksja</span>
+    </div>
+  </div>
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <span class="masthead-label">Rok Norwidowski Zawsze</span>
+      <div class="masthead-issue">Widziane ze Strachowki<br>od 2016 roku</div>
+    </div>
+    <a href="../index.html" class="masthead-name">Osobny Swiat</a>
+    <p class="masthead-tagline">Filozofia, wiara, wiersze i mysli — pisane codziennie od lat</p>
+    <nav class="sitenav">
+      <a href="../index.html" >Teksty</a>
+      <a href="../archiwum/index.html" >Archiwum</a>
+      <a href="../search/index.html" >Szukaj</a>
+      <a href="../universe/index.html" >&#346;wiat S&#322;&#243;w</a>
+      <a href="../universe/timeline.html" >O&#347; Czasu</a>
+      <a href="../galeria/index.html" class='active'>Galeria</a>
+    </nav>
+  </div>
+</header>
+
+
+
+<div class="page-wrap">
+  
+    
+
+<style>
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  padding: 2rem 0 4rem;
+}
+.gallery-item {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  background: #e8e2d8;
+  position: relative;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, opacity 0.2s;
+  display: block;
+}
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(28,25,22,0.85) 0%, transparent 100%);
+  padding: 1.5rem 0.75rem 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.85rem;
+  color: rgba(247,243,237,0.9);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.gallery-item-date {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  color: rgba(247,243,237,0.5);
+  margin-top: 0.2rem;
+  letter-spacing: 0.05em;
+}
+
+/* Lightbox */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,18,16,0.95);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+#lb-img {
+  max-width: 90vw;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+#lb-info {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+#lb-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: rgba(247,243,237,0.9);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+#lb-date {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(247,243,237,0.35);
+  letter-spacing: 0.07em;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+#lb-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  border-bottom: 1px solid rgba(200,168,75,0.4);
+  text-decoration: none;
+}
+#lb-close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: rgba(247,243,237,0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+#lb-close:hover { color: rgba(247,243,237,0.9); }
+</style>
+<div style="padding: 3rem 0 0">
+  <h1 style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:2.5rem;letter-spacing:-0.02em;margin-bottom:0.5rem">Galeria</h1>
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;color:#9a9590;margin-bottom:0">
+    180 zdjec z tekstow — kliknij aby zobaczyc wieksze i przejsc do tekstu.
+  </p>
+</div>
+<div class="gallery-grid">
+        <div class="gallery-item"
+             data-src="photos/photo_0000_ciag-dalszy-grawitacji-ku-prawdzie-w-zyc.jpg"
+             data-title="Ciąg dalszy grawitacji ku Prawdzie (w życiu i śmierci) (cz. 4)"
+             data-date="15 kwietnia 2026"
+             data-slug="ciag-dalszy-grawitacji-ku-prawdzie-w-zyciu-i-smierci-cz-4-20260415">
+          <img src="photos/photo_0000_ciag-dalszy-grawitacji-ku-prawdzie-w-zyc.jpg" alt="Ciąg dalszy grawitacji ku Prawdzie (w życiu i śmierci) (cz. " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ciąg dalszy grawitacji ku Prawdzie (w życiu i śmierci) (cz. 4)</div>
+            <div class="gallery-item-date">15 kwietnia 2026</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0001_sila-grawitacji-prawdy-cz-3-20260415.jpg"
+             data-title="Siła grawitacji Prawdy (cz. 3)"
+             data-date="15 kwietnia 2026"
+             data-slug="sila-grawitacji-prawdy-cz-3-20260415">
+          <img src="photos/photo_0001_sila-grawitacji-prawdy-cz-3-20260415.jpg" alt="Siła grawitacji Prawdy (cz. 3)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Siła grawitacji Prawdy (cz. 3)</div>
+            <div class="gallery-item-date">15 kwietnia 2026</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0002_ciag-dalszy-nastapil-grawitacja-ku-prawd.jpg"
+             data-title="Ciąg dalszy nastąpił. Grawitacja ku Prawdzie (cz. 2)"
+             data-date="15 kwietnia 2026"
+             data-slug="ciag-dalszy-nastapil-grawitacja-ku-prawdzie-cz-2-20260415">
+          <img src="photos/photo_0002_ciag-dalszy-nastapil-grawitacja-ku-prawd.jpg" alt="Ciąg dalszy nastąpił. Grawitacja ku Prawdzie (cz. 2)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ciąg dalszy nastąpił. Grawitacja ku Prawdzie (cz. 2)</div>
+            <div class="gallery-item-date">15 kwietnia 2026</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0003_r-e-w-e-l-a-c-j-a-dla-mnie-wymagajaca-do.jpg"
+             data-title="R-E-W-E-L-A-C-J-A (dla mnie). Wymagająca dopracowania redakcji"
+             data-date="22 lutego 2026"
+             data-slug="r-e-w-e-l-a-c-j-a-dla-mnie-wymagajaca-dopracowania-redakcji-20260222">
+          <img src="photos/photo_0003_r-e-w-e-l-a-c-j-a-dla-mnie-wymagajaca-do.jpg" alt="R-E-W-E-L-A-C-J-A (dla mnie). Wymagająca dopracowania redakc" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">R-E-W-E-L-A-C-J-A (dla mnie). Wymagająca dopracowania redakcji</div>
+            <div class="gallery-item-date">22 lutego 2026</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0004_po-stronie-swiatla-przypowiesc-o-swiadom.jpg"
+             data-title="Po stronie światła — przypowieść o świadomości, albo mistyka współczesnego rozum"
+             data-date="29 stycznia 2026"
+             data-slug="po-stronie-swiatla-przypowiesc-o-swiadomosci-albo-mistyka-wspolczesnego-rozumu-20260129">
+          <img src="photos/photo_0004_po-stronie-swiatla-przypowiesc-o-swiadom.jpg" alt="Po stronie światła — przypowieść o świadomości, albo mistyka" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Po stronie światła — przypowieść o świadomości, albo mistyka współczesnego rozum</div>
+            <div class="gallery-item-date">29 stycznia 2026</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0005_obowiazki-listopadowe-polek-i-polakow-st.jpg"
+             data-title="Obowiązki listopadowe Polek i Polaków (stare i całkiem nowe)"
+             data-date="11 listopada 2025"
+             data-slug="obowiazki-listopadowe-polek-i-polakow-stare-i-calkiem-nowe-20251111">
+          <img src="photos/photo_0005_obowiazki-listopadowe-polek-i-polakow-st.jpg" alt="Obowiązki listopadowe Polek i Polaków (stare i całkiem nowe)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Obowiązki listopadowe Polek i Polaków (stare i całkiem nowe)</div>
+            <div class="gallery-item-date">11 listopada 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0006_fresk-nauczycielsko-wojenny-o-nas-202510.jpg"
+             data-title="FRESK NAUCZYCIELSKO-WOJENNY O… nas?"
+             data-date="27 października 2025"
+             data-slug="fresk-nauczycielsko-wojenny-o-nas-20251027">
+          <img src="photos/photo_0006_fresk-nauczycielsko-wojenny-o-nas-202510.jpg" alt="FRESK NAUCZYCIELSKO-WOJENNY O… nas?" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">FRESK NAUCZYCIELSKO-WOJENNY O… nas?</div>
+            <div class="gallery-item-date">27 października 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0007_swieto-nie-solidarnosci-swieto-podzialow.jpg"
+             data-title="ŚWIĘTO NIE-SOLIDARNOŚCI - ŚWIĘTO PODZIAŁÓW POLEK I POLAKÓW"
+             data-date="31 sierpnia 2025"
+             data-slug="swieto-nie-solidarnosci-swieto-podzialow-polek-i-polakow-20250831">
+          <img src="photos/photo_0007_swieto-nie-solidarnosci-swieto-podzialow.jpg" alt="ŚWIĘTO NIE-SOLIDARNOŚCI - ŚWIĘTO PODZIAŁÓW POLEK I POLAKÓW" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">ŚWIĘTO NIE-SOLIDARNOŚCI - ŚWIĘTO PODZIAŁÓW POLEK I POLAKÓW</div>
+            <div class="gallery-item-date">31 sierpnia 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0008_reytan-1773-a-sprawa-polska-ad-2025-o-an.jpg"
+             data-title="Reytan 1773, a Sprawa Polska AD 2025 (o antropologii społecznej słów kilka)"
+             data-date="1 lipca 2025"
+             data-slug="reytan-1773-a-sprawa-polska-ad-2025-o-antropologii-spolecznej-slow-kilka-20250701">
+          <img src="photos/photo_0008_reytan-1773-a-sprawa-polska-ad-2025-o-an.jpg" alt="Reytan 1773, a Sprawa Polska AD 2025 (o antropologii społecz" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Reytan 1773, a Sprawa Polska AD 2025 (o antropologii społecznej słów kilka)</div>
+            <div class="gallery-item-date">1 lipca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0009_dusz-pasterstwo-a-wybory-wiara-i-rozum-s.jpg"
+             data-title="Dusz-pasterstwo a wybory. Wiara i rozum szukające prawdy!"
+             data-date="27 czerwca 2025"
+             data-slug="dusz-pasterstwo-a-wybory-wiara-i-rozum-szukajace-prawdy-20250627">
+          <img src="photos/photo_0009_dusz-pasterstwo-a-wybory-wiara-i-rozum-s.jpg" alt="Dusz-pasterstwo a wybory. Wiara i rozum szukające prawdy!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dusz-pasterstwo a wybory. Wiara i rozum szukające prawdy!</div>
+            <div class="gallery-item-date">27 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0010_kosmos-i-praworzadnosc-a-sprawa-polska-2.jpg"
+             data-title="Kosmos i praworządność a sprawa polska"
+             data-date="26 czerwca 2025"
+             data-slug="kosmos-i-praworzadnosc-a-sprawa-polska-20250626">
+          <img src="photos/photo_0010_kosmos-i-praworzadnosc-a-sprawa-polska-2.jpg" alt="Kosmos i praworządność a sprawa polska" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Kosmos i praworządność a sprawa polska</div>
+            <div class="gallery-item-date">26 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0011_po-smierci-jednego-z-nas-10-milionow-sol.jpg"
+             data-title="Po śmierci jednego z nas (10 milionów Solidarności)"
+             data-date="14 czerwca 2025"
+             data-slug="po-smierci-jednego-z-nas-10-milionow-solidarnosci-20250614">
+          <img src="photos/photo_0011_po-smierci-jednego-z-nas-10-milionow-sol.jpg" alt="Po śmierci jednego z nas (10 milionów Solidarności)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Po śmierci jednego z nas (10 milionów Solidarności)</div>
+            <div class="gallery-item-date">14 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0012_tozsamosc-i-ai-sztuczna-inteligencja-jak.jpg"
+             data-title="Tożsamość i AI (sztuczna inteligencja) jako argumenty w walce o PRAWDĘ - w łańcu"
+             data-date="12 czerwca 2025"
+             data-slug="tozsamosc-i-ai-sztuczna-inteligencja-jako-argumenty-w-walce-o-prawde-w-lancuchu--20250612">
+          <img src="photos/photo_0012_tozsamosc-i-ai-sztuczna-inteligencja-jak.jpg" alt="Tożsamość i AI (sztuczna inteligencja) jako argumenty w walc" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Tożsamość i AI (sztuczna inteligencja) jako argumenty w walce o PRAWDĘ - w łańcu</div>
+            <div class="gallery-item-date">12 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0013_sztuka-zapis-swietowania-80-lecia-szkoly.jpg"
+             data-title="Sztuka (zapis) świętowania 80-lecia szkoły... i jedności ponadpokoleniowej"
+             data-date="7 czerwca 2025"
+             data-slug="sztuka-zapis-swietowania-80-lecia-szkoly-i-jednosci-ponadpokoleniowej-20250607">
+          <img src="photos/photo_0013_sztuka-zapis-swietowania-80-lecia-szkoly.jpg" alt="Sztuka (zapis) świętowania 80-lecia szkoły... i jedności pon" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Sztuka (zapis) świętowania 80-lecia szkoły... i jedności ponadpokoleniowej</div>
+            <div class="gallery-item-date">7 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0014_polska-na-fundamencie-falszu-20250605.jpg"
+             data-title="Polska na fundamencie fałszu"
+             data-date="5 czerwca 2025"
+             data-slug="polska-na-fundamencie-falszu-20250605">
+          <img src="photos/photo_0014_polska-na-fundamencie-falszu-20250605.jpg" alt="Polska na fundamencie fałszu" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska na fundamencie fałszu</div>
+            <div class="gallery-item-date">5 czerwca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0015_swieto-wieszcza-i-rzeczpospolitej-norwid.jpg"
+             data-title="Święto Wieszcza i Rzeczpospolitej Norwidowskiej"
+             data-date="23 maja 2025"
+             data-slug="swieto-wieszcza-i-rzeczpospolitej-norwidowskiej-20250523">
+          <img src="photos/photo_0015_swieto-wieszcza-i-rzeczpospolitej-norwid.jpg" alt="Święto Wieszcza i Rzeczpospolitej Norwidowskiej" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Święto Wieszcza i Rzeczpospolitej Norwidowskiej</div>
+            <div class="gallery-item-date">23 maja 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0016_moj-fenomenologiczny-glos-o-zyciu-i-wybo.jpg"
+             data-title="Mój fenomenologiczny głos - o życiu i wyborach AD 2025 (po I turze)"
+             data-date="19 maja 2025"
+             data-slug="moj-fenomenologiczny-glos-o-zyciu-i-wyborach-ad-2025-po-i-turze-20250519">
+          <img src="photos/photo_0016_moj-fenomenologiczny-glos-o-zyciu-i-wybo.jpg" alt="Mój fenomenologiczny głos - o życiu i wyborach AD 2025 (po I" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mój fenomenologiczny głos - o życiu i wyborach AD 2025 (po I turze)</div>
+            <div class="gallery-item-date">19 maja 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0017_smierc-blogoslawiona-fenomenologia-jezus.jpg"
+             data-title="Śmierć błogosławiona. Fenomenologia Jezusa Chrystusa"
+             data-date="27 kwietnia 2025"
+             data-slug="smierc-blogoslawiona-fenomenologia-jezusa-chrystusa-20250427">
+          <img src="photos/photo_0017_smierc-blogoslawiona-fenomenologia-jezus.jpg" alt="Śmierć błogosławiona. Fenomenologia Jezusa Chrystusa" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Śmierć błogosławiona. Fenomenologia Jezusa Chrystusa</div>
+            <div class="gallery-item-date">27 kwietnia 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0018_tozsamosc-przez-solidarnosc-pokolen-ku-p.jpg"
+             data-title="Tożsamość. Przez solidarność pokoleń, ku przyszłości narodów"
+             data-date="10 kwietnia 2025"
+             data-slug="tozsamosc-przez-solidarnosc-pokolen-ku-przyszlosci-narodow-20250410">
+          <img src="photos/photo_0018_tozsamosc-przez-solidarnosc-pokolen-ku-p.jpg" alt="Tożsamość. Przez solidarność pokoleń, ku przyszłości narodów" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Tożsamość. Przez solidarność pokoleń, ku przyszłości narodów</div>
+            <div class="gallery-item-date">10 kwietnia 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0019_filozofia-moja-i-teologia-spolecznego-fu.jpg"
+             data-title="FILOZOFIA (moja i... teologia) Społecznego Funduszu Stypendialnego… "
+             data-date="30 marca 2025"
+             data-slug="filozofia-moja-i-teologia-spolecznego-funduszu-stypendialnego-20250330">
+          <img src="photos/photo_0019_filozofia-moja-i-teologia-spolecznego-fu.jpg" alt="FILOZOFIA (moja i... teologia) Społecznego Funduszu Stypendi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">FILOZOFIA (moja i... teologia) Społecznego Funduszu Stypendialnego… </div>
+            <div class="gallery-item-date">30 marca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0020_hanba-w-bialym-domu-disgrace-in-the-oval.jpg"
+             data-title="Hańba w Białym Domu (Disgrace in the Oval Office)"
+             data-date="1 marca 2025"
+             data-slug="hanba-w-bialym-domu-disgrace-in-the-oval-office-20250301">
+          <img src="photos/photo_0020_hanba-w-bialym-domu-disgrace-in-the-oval.jpg" alt="Hańba w Białym Domu (Disgrace in the Oval Office)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Hańba w Białym Domu (Disgrace in the Oval Office)</div>
+            <div class="gallery-item-date">1 marca 2025</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0021_rocznicowy-namysl-nad-moim-powiatem-i-po.jpg"
+             data-title="ROCZNICOWY NAMYSŁ NAD (MOIM) POWIATEM (I POLSKĄ)"
+             data-date="27 listopada 2024"
+             data-slug="rocznicowy-namysl-nad-moim-powiatem-i-polska-20241127">
+          <img src="photos/photo_0021_rocznicowy-namysl-nad-moim-powiatem-i-po.jpg" alt="ROCZNICOWY NAMYSŁ NAD (MOIM) POWIATEM (I POLSKĄ)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">ROCZNICOWY NAMYSŁ NAD (MOIM) POWIATEM (I POLSKĄ)</div>
+            <div class="gallery-item-date">27 listopada 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0022_strachowko-pamietasz-post-o-szkole-z-200.jpg"
+             data-title="Strachówko, pamiętasz? (post o szkole, z 2009)"
+             data-date="17 listopada 2024"
+             data-slug="strachowko-pamietasz-post-o-szkole-z-2009-20241117">
+          <img src="photos/photo_0022_strachowko-pamietasz-post-o-szkole-z-200.jpg" alt="Strachówko, pamiętasz? (post o szkole, z 2009)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Strachówko, pamiętasz? (post o szkole, z 2009)</div>
+            <div class="gallery-item-date">17 listopada 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0023_swietowanie-pelne-refleksji-20241111.jpg"
+             data-title="Świętowanie pełne refleksji"
+             data-date="11 listopada 2024"
+             data-slug="swietowanie-pelne-refleksji-20241111">
+          <img src="photos/photo_0023_swietowanie-pelne-refleksji-20241111.jpg" alt="Świętowanie pełne refleksji" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Świętowanie pełne refleksji</div>
+            <div class="gallery-item-date">11 listopada 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0024_kosciol-swietosci-i-tradycji-trwania-w-w.jpg"
+             data-title="Kościół świętości i tradycji trwania w wyższości i zakłamaniu"
+             data-date="9 listopada 2024"
+             data-slug="kosciol-swietosci-i-tradycji-trwania-w-wyzszosci-i-zaklamaniu-20241109">
+          <img src="photos/photo_0024_kosciol-swietosci-i-tradycji-trwania-w-w.jpg" alt="Kościół świętości i tradycji trwania w wyższości i zakłamani" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Kościół świętości i tradycji trwania w wyższości i zakłamaniu</div>
+            <div class="gallery-item-date">9 listopada 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0025_wydarzenie-u-matki-bozej-annopolskiej-w-.jpg"
+             data-title="WYDARZENIE "U Matki Bożej Annopolskiej w dniu 30 sierpnia 2024" (praca patchwork"
+             data-date="24 października 2024"
+             data-slug="wydarzenie-u-matki-bozej-annopolskiej-w-dniu-30-sierpnia-2024-praca-patchworkowa-20241024">
+          <img src="photos/photo_0025_wydarzenie-u-matki-bozej-annopolskiej-w-.jpg" alt="WYDARZENIE "U Matki Bożej Annopolskiej w dniu 30 sierpnia 20" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">WYDARZENIE "U Matki Bożej Annopolskiej w dniu 30 sierpnia 2024" (praca patchwork</div>
+            <div class="gallery-item-date">24 października 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0026_polska-gminna-parafialna-samo-rzadowa-zm.jpg"
+             data-title="Polska gminna, parafialna, samo-rządowa. (Z)marnowany potencjał i kryzys sensu?!"
+             data-date="15 czerwca 2024"
+             data-slug="polska-gminna-parafialna-samo-rzadowa-zmarnowany-potencjal-i-kryzys-sensu-20240615">
+          <img src="photos/photo_0026_polska-gminna-parafialna-samo-rzadowa-zm.jpg" alt="Polska gminna, parafialna, samo-rządowa. (Z)marnowany potenc" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska gminna, parafialna, samo-rządowa. (Z)marnowany potencjał i kryzys sensu?!</div>
+            <div class="gallery-item-date">15 czerwca 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0027_cisza-o-czym-w-wyborach-mieszkancow-kult.jpg"
+             data-title="Cisza (o czym) w wyborach mieszkańców. Kulturowa pustka? Pomimo bogactwa. Dlacze"
+             data-date="6 kwietnia 2024"
+             data-slug="cisza-o-czym-w-wyborach-mieszkancow-kulturowa-pustka-pomimo-bogactwa-dlaczego-20240406">
+          <img src="photos/photo_0027_cisza-o-czym-w-wyborach-mieszkancow-kult.jpg" alt="Cisza (o czym) w wyborach mieszkańców. Kulturowa pustka? Pom" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Cisza (o czym) w wyborach mieszkańców. Kulturowa pustka? Pomimo bogactwa. Dlacze</div>
+            <div class="gallery-item-date">6 kwietnia 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0028_aborcja-jako-moje-pozne-ale-obowiazkowe-.jpg"
+             data-title="Aborcja, jako moje późne, ale  obowiązkowe rozważania imieninowo-urodzinowe"
+             data-date="28 marca 2024"
+             data-slug="aborcja-jako-moje-pozne-ale-obowiazkowe-rozwazania-imieninowo-urodzinowe-20240328">
+          <img src="photos/photo_0028_aborcja-jako-moje-pozne-ale-obowiazkowe-.jpg" alt="Aborcja, jako moje późne, ale  obowiązkowe rozważania imieni" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Aborcja, jako moje późne, ale  obowiązkowe rozważania imieninowo-urodzinowe</div>
+            <div class="gallery-item-date">28 marca 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0029_o-milosci-szerzej-mimochodem-20240307.jpg"
+             data-title="O miłości… szerzej, mimochodem"
+             data-date="7 marca 2024"
+             data-slug="o-milosci-szerzej-mimochodem-20240307">
+          <img src="photos/photo_0029_o-milosci-szerzej-mimochodem-20240307.jpg" alt="O miłości… szerzej, mimochodem" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O miłości… szerzej, mimochodem</div>
+            <div class="gallery-item-date">7 marca 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0030_trzy-posty-i-wiersz-ulozyly-te-tresc-z-p.jpg"
+             data-title="Trzy posty i wiersz ułożyły tę treść (z podwojeniem w komentarzach)"
+             data-date="7 lutego 2024"
+             data-slug="trzy-posty-i-wiersz-ulozyly-te-tresc-z-podwojeniem-w-komentarzach-20240207">
+          <img src="photos/photo_0030_trzy-posty-i-wiersz-ulozyly-te-tresc-z-p.jpg" alt="Trzy posty i wiersz ułożyły tę treść (z podwojeniem w koment" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Trzy posty i wiersz ułożyły tę treść (z podwojeniem w komentarzach)</div>
+            <div class="gallery-item-date">7 lutego 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0031_podziw-dla-ministra-bodnara-i-oskarzam-k.jpg"
+             data-title="Podziw dla Ministra Bodnara i... oskarżam Kościół.PL (o burdel moralno-ustrojowy"
+             data-date="29 stycznia 2024"
+             data-slug="podziw-dla-ministra-bodnara-i-oskarzam-kosciolpl-o-burdel-moralno-ustrojowy-w-rp-20240129">
+          <img src="photos/photo_0031_podziw-dla-ministra-bodnara-i-oskarzam-k.jpg" alt="Podziw dla Ministra Bodnara i... oskarżam Kościół.PL (o burd" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Podziw dla Ministra Bodnara i... oskarżam Kościół.PL (o burdel moralno-ustrojowy</div>
+            <div class="gallery-item-date">29 stycznia 2024</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0032_objasnianie-normalnosci-niechciana-misja.jpg"
+             data-title="Objaśnianie normalności - niechciana misja Kościoła.PL i obywatelskie wyznanie w"
+             data-date="13 grudnia 2023"
+             data-slug="objasnianie-normalnosci-niechciana-misja-kosciolapl-i-obywatelskie-wyznanie-wiar-20231213">
+          <img src="photos/photo_0032_objasnianie-normalnosci-niechciana-misja.jpg" alt="Objaśnianie normalności - niechciana misja Kościoła.PL i oby" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Objaśnianie normalności - niechciana misja Kościoła.PL i obywatelskie wyznanie w</div>
+            <div class="gallery-item-date">13 grudnia 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0033_sp-antoni-czajkowski-swiadectwo-o-zmarly.jpg"
+             data-title="ŚP Antoni Czajkowski - świadectwo o zmarłym, które potrzebne jest żywym"
+             data-date="26 listopada 2023"
+             data-slug="sp-antoni-czajkowski-swiadectwo-o-zmarlym-ktore-potrzebne-jest-zywym-20231126">
+          <img src="photos/photo_0033_sp-antoni-czajkowski-swiadectwo-o-zmarly.jpg" alt="ŚP Antoni Czajkowski - świadectwo o zmarłym, które potrzebne" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">ŚP Antoni Czajkowski - świadectwo o zmarłym, które potrzebne jest żywym</div>
+            <div class="gallery-item-date">26 listopada 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0034_walka-na-misje-czyli-polityka-i-metafizy.jpg"
+             data-title="Walka na misje, czyli polityka i metafizyka "
+             data-date="10 listopada 2023"
+             data-slug="walka-na-misje-czyli-polityka-i-metafizyka-20231110">
+          <img src="photos/photo_0034_walka-na-misje-czyli-polityka-i-metafizy.jpg" alt="Walka na misje, czyli polityka i metafizyka " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Walka na misje, czyli polityka i metafizyka </div>
+            <div class="gallery-item-date">10 listopada 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0035_polsko-polsko-kosciele-koscielepl-chce-s.jpg"
+             data-title="Polsko, Polsko, Kościele, kościele.pl. Chcę śpiewać hymn dziękczynienia po wybor"
+             data-date="18 października 2023"
+             data-slug="polsko-polsko-kosciele-koscielepl-chce-spiewac-hymn-dziekczynienia-po-wyborach-a-20231018">
+          <img src="photos/photo_0035_polsko-polsko-kosciele-koscielepl-chce-s.jpg" alt="Polsko, Polsko, Kościele, kościele.pl. Chcę śpiewać hymn dzi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polsko, Polsko, Kościele, kościele.pl. Chcę śpiewać hymn dziękczynienia po wybor</div>
+            <div class="gallery-item-date">18 października 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0036_kardynal-i-kurtyzana-a-sprawa-polska-w-s.jpg"
+             data-title="Kardynał i kurtyzana a sprawa polska (w Strachówce)"
+             data-date="18 września 2023"
+             data-slug="kardynal-i-kurtyzana-a-sprawa-polska-w-strachowce-20230918">
+          <img src="photos/photo_0036_kardynal-i-kurtyzana-a-sprawa-polska-w-s.jpg" alt="Kardynał i kurtyzana a sprawa polska (w Strachówce)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Kardynał i kurtyzana a sprawa polska (w Strachówce)</div>
+            <div class="gallery-item-date">18 września 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0037_jestem-z-wami-o-sp-ks-mieczyslawie-iwani.jpg"
+             data-title=""Jestem z Wami" - o śp ks. Mieczysławie Iwanickim, proboszczu Strachówki 1974-19"
+             data-date="26 sierpnia 2023"
+             data-slug="jestem-z-wami-o-sp-ks-mieczyslawie-iwanickim-proboszczu-strachowki-1974-1981-20230826">
+          <img src="photos/photo_0037_jestem-z-wami-o-sp-ks-mieczyslawie-iwani.jpg" alt=""Jestem z Wami" - o śp ks. Mieczysławie Iwanickim, proboszcz" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">"Jestem z Wami" - o śp ks. Mieczysławie Iwanickim, proboszczu Strachówki 1974-19</div>
+            <div class="gallery-item-date">26 sierpnia 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0038_niewzruszone-antykonstytucyjne-podwaliny.jpg"
+             data-title="Niewzruszone - antykonstytucyjne - podwaliny polskiej świadomości? "
+             data-date="21 lipca 2023"
+             data-slug="niewzruszone-antykonstytucyjne-podwaliny-polskiej-swiadomosci-20230721">
+          <img src="photos/photo_0038_niewzruszone-antykonstytucyjne-podwaliny.jpg" alt="Niewzruszone - antykonstytucyjne - podwaliny polskiej świado" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Niewzruszone - antykonstytucyjne - podwaliny polskiej świadomości? </div>
+            <div class="gallery-item-date">21 lipca 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0039_pytanie-rzecznika-za-co-nienawidzicie-pi.jpg"
+             data-title="Pytanie rzecznika - za co nienawidzicie PiS-u "
+             data-date="22 marca 2023"
+             data-slug="pytanie-rzecznika-za-co-nienawidzicie-pis-u-20230322">
+          <img src="photos/photo_0039_pytanie-rzecznika-za-co-nienawidzicie-pi.jpg" alt="Pytanie rzecznika - za co nienawidzicie PiS-u " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Pytanie rzecznika - za co nienawidzicie PiS-u </div>
+            <div class="gallery-item-date">22 marca 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0040_robia-sobie-dobrze-ani-wierze-ani-rozumo.jpg"
+             data-title="Robią sobie dobrze. Ani wierze, ani rozumowi, ani ich iunctim "
+             data-date="17 marca 2023"
+             data-slug="robia-sobie-dobrze-ani-wierze-ani-rozumowi-ani-ich-iunctim-20230317">
+          <img src="photos/photo_0040_robia-sobie-dobrze-ani-wierze-ani-rozumo.jpg" alt="Robią sobie dobrze. Ani wierze, ani rozumowi, ani ich iuncti" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Robią sobie dobrze. Ani wierze, ani rozumowi, ani ich iunctim </div>
+            <div class="gallery-item-date">17 marca 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0041_wiedzial-nie-wiedzial-czyli-co-kto-wie-l.jpg"
+             data-title="Wiedział? Nie wiedział? - czyli, co, kto wie, lub intencjonalnie "nie wie""
+             data-date="10 marca 2023"
+             data-slug="wiedzial-nie-wiedzial-czyli-co-kto-wie-lub-intencjonalnie-nie-wie-20230310">
+          <img src="photos/photo_0041_wiedzial-nie-wiedzial-czyli-co-kto-wie-l.jpg" alt="Wiedział? Nie wiedział? - czyli, co, kto wie, lub intencjona" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Wiedział? Nie wiedział? - czyli, co, kto wie, lub intencjonalnie "nie wie"</div>
+            <div class="gallery-item-date">10 marca 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0042_8-lat-bez-mala-skandalicznego-ustroju-gw.jpg"
+             data-title="8 lat, bez mała, skandalicznego ustroju (gwałtu rozumu i kultury)"
+             data-date="16 lutego 2023"
+             data-slug="8-lat-bez-mala-skandalicznego-ustroju-gwaltu-rozumu-i-kultury-20230216">
+          <img src="photos/photo_0042_8-lat-bez-mala-skandalicznego-ustroju-gw.jpg" alt="8 lat, bez mała, skandalicznego ustroju (gwałtu rozumu i kul" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">8 lat, bez mała, skandalicznego ustroju (gwałtu rozumu i kultury)</div>
+            <div class="gallery-item-date">16 lutego 2023</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0043_dobro-dziecka-w-tluszcza-okolicach-rozum.jpg"
+             data-title="Dobro dziecka w Tłuszcza okolicach – rozumowanie "
+             data-date="29 listopada 2022"
+             data-slug="dobro-dziecka-w-tluszcza-okolicach-rozumowanie-20221129">
+          <img src="photos/photo_0043_dobro-dziecka-w-tluszcza-okolicach-rozum.jpg" alt="Dobro dziecka w Tłuszcza okolicach – rozumowanie " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dobro dziecka w Tłuszcza okolicach – rozumowanie </div>
+            <div class="gallery-item-date">29 listopada 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0044_skonczyc-swoja-fenomenologie-dokonczyc-m.jpg"
+             data-title="Skończyć swoją fenomenologię (dokończyć moją)"
+             data-date="11 października 2022"
+             data-slug="skonczyc-swoja-fenomenologie-dokonczyc-moja-20221011">
+          <img src="photos/photo_0044_skonczyc-swoja-fenomenologie-dokonczyc-m.jpg" alt="Skończyć swoją fenomenologię (dokończyć moją)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Skończyć swoją fenomenologię (dokończyć moją)</div>
+            <div class="gallery-item-date">11 października 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0045_duch-czasu-i-duch-miejsca-w-moim-zyciu-a.jpg"
+             data-title="Duch czasu i duch miejsca w moim życiu. Annopol-Strachówka-Legionowo"
+             data-date="5 października 2022"
+             data-slug="duch-czasu-i-duch-miejsca-w-moim-zyciu-annopol-strachowka-legionowo-20221005">
+          <img src="photos/photo_0045_duch-czasu-i-duch-miejsca-w-moim-zyciu-a.jpg" alt="Duch czasu i duch miejsca w moim życiu. Annopol-Strachówka-L" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Duch czasu i duch miejsca w moim życiu. Annopol-Strachówka-Legionowo</div>
+            <div class="gallery-item-date">5 października 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0046_nagroda-za-wytrwalosc-wladza-i-sacrum-sa.jpg"
+             data-title="Nagroda za wytrwałość (władza i sacrum, sacrum i władza... nad kim, nad czym)"
+             data-date="18 września 2022"
+             data-slug="nagroda-za-wytrwalosc-wladza-i-sacrum-sacrum-i-wladza-nad-kim-nad-czym-20220918">
+          <img src="photos/photo_0046_nagroda-za-wytrwalosc-wladza-i-sacrum-sa.jpg" alt="Nagroda za wytrwałość (władza i sacrum, sacrum i władza... n" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Nagroda za wytrwałość (władza i sacrum, sacrum i władza... nad kim, nad czym)</div>
+            <div class="gallery-item-date">18 września 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0047_niepowszechny-pis-katolicyzm-polsko-kato.jpg"
+             data-title="Niepowszechny PiS-katolicyzm (polsko-katolickie PiS)"
+             data-date="8 września 2022"
+             data-slug="niepowszechny-pis-katolicyzm-polsko-katolickie-pis-20220908">
+          <img src="photos/photo_0047_niepowszechny-pis-katolicyzm-polsko-kato.jpg" alt="Niepowszechny PiS-katolicyzm (polsko-katolickie PiS)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Niepowszechny PiS-katolicyzm (polsko-katolickie PiS)</div>
+            <div class="gallery-item-date">8 września 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0048_strachowka-rozalin-sprawa-ignasia-innych.jpg"
+             data-title="Strachówka, Rozalin - sprawa Ignasia, innych dzieci... i Rodziny Rodzin"
+             data-date="5 września 2022"
+             data-slug="strachowka-rozalin-sprawa-ignasia-innych-dzieci-i-rodziny-rodzin-20220905">
+          <img src="photos/photo_0048_strachowka-rozalin-sprawa-ignasia-innych.jpg" alt="Strachówka, Rozalin - sprawa Ignasia, innych dzieci... i Rod" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Strachówka, Rozalin - sprawa Ignasia, innych dzieci... i Rodziny Rodzin</div>
+            <div class="gallery-item-date">5 września 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0049_metafizyka-fenomenologia-zycia-implikacj.jpg"
+             data-title="Metafizyka, fenomenologia (życia) - implikacje światopoglądowo-kulturowo-polityc"
+             data-date="20 sierpnia 2022"
+             data-slug="metafizyka-fenomenologia-zycia-implikacje-swiatopogladowo-kulturowo-polityczne-20220820">
+          <img src="photos/photo_0049_metafizyka-fenomenologia-zycia-implikacj.jpg" alt="Metafizyka, fenomenologia (życia) - implikacje światopoglądo" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Metafizyka, fenomenologia (życia) - implikacje światopoglądowo-kulturowo-polityc</div>
+            <div class="gallery-item-date">20 sierpnia 2022</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0050_hipokryzja-ustrojowa-ultrakatolickiego-p.jpg"
+             data-title="Hipokryzja ustrojowa (ultrakatolickiego PiS-KEP-ustroju) - gwałt na wierze, rozu"
+             data-date="9 kwietnia 2021"
+             data-slug="hipokryzja-ustrojowa-ultrakatolickiego-pis-kep-ustroju-gwalt-na-wierze-rozumie-i-20210409">
+          <img src="photos/photo_0050_hipokryzja-ustrojowa-ultrakatolickiego-p.jpg" alt="Hipokryzja ustrojowa (ultrakatolickiego PiS-KEP-ustroju) - g" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Hipokryzja ustrojowa (ultrakatolickiego PiS-KEP-ustroju) - gwałt na wierze, rozu</div>
+            <div class="gallery-item-date">9 kwietnia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0051_post-ustrojowy-wymuszony-zyciem-droga-pr.jpg"
+             data-title="Post ustrojowy wymuszony Życiem (Drogą-Prawdą-Życiem)"
+             data-date="26 marca 2021"
+             data-slug="post-ustrojowy-wymuszony-zyciem-droga-prawda-zyciem-20210326">
+          <img src="photos/photo_0051_post-ustrojowy-wymuszony-zyciem-droga-pr.jpg" alt="Post ustrojowy wymuszony Życiem (Drogą-Prawdą-Życiem)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Post ustrojowy wymuszony Życiem (Drogą-Prawdą-Życiem)</div>
+            <div class="gallery-item-date">26 marca 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0052_o-pseudo-katolickim-pis-kep-ustroju-pisa.jpg"
+             data-title="O pseudo-katolickim PiS-KEP-ustroju. Pisane ciśnieniem czasu (Rok Norwidowski 20"
+             data-date="19 marca 2021"
+             data-slug="o-pseudo-katolickim-pis-kep-ustroju-pisane-cisnieniem-czasu-rok-norwidowski-2021-20210319">
+          <img src="photos/photo_0052_o-pseudo-katolickim-pis-kep-ustroju-pisa.jpg" alt="O pseudo-katolickim PiS-KEP-ustroju. Pisane ciśnieniem czasu" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O pseudo-katolickim PiS-KEP-ustroju. Pisane ciśnieniem czasu (Rok Norwidowski 20</div>
+            <div class="gallery-item-date">19 marca 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0053_to-plucie-chrystusowi-w-twarz-wielki-pos.jpg"
+             data-title=""To plucie Chrystusowi w twarz". Wielki Post 2021. Rok Norwidowski!"
+             data-date="4 marca 2021"
+             data-slug="to-plucie-chrystusowi-w-twarz-wielki-post-2021-rok-norwidowski-20210304">
+          <img src="photos/photo_0053_to-plucie-chrystusowi-w-twarz-wielki-pos.jpg" alt=""To plucie Chrystusowi w twarz". Wielki Post 2021. Rok Norwi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">"To plucie Chrystusowi w twarz". Wielki Post 2021. Rok Norwidowski!</div>
+            <div class="gallery-item-date">4 marca 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0054_kongres-katoliczek-i-katolikow-czyli-i-r.jpg"
+             data-title="Kongres Katoliczek i Katolików, czyli i Rzeczpospolita Norwidowska 2021(?)"
+             data-date="19 lutego 2021"
+             data-slug="kongres-katoliczek-i-katolikow-czyli-i-rzeczpospolita-norwidowska-2021-20210219">
+          <img src="photos/photo_0054_kongres-katoliczek-i-katolikow-czyli-i-r.jpg" alt="Kongres Katoliczek i Katolików, czyli i Rzeczpospolita Norwi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Kongres Katoliczek i Katolików, czyli i Rzeczpospolita Norwidowska 2021(?)</div>
+            <div class="gallery-item-date">19 lutego 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0055_po-co-jeszcze-zyje-20210211.jpg"
+             data-title="Po co (jeszcze) żyję"
+             data-date="11 lutego 2021"
+             data-slug="po-co-jeszcze-zyje-20210211">
+          <img src="photos/photo_0055_po-co-jeszcze-zyje-20210211.jpg" alt="Po co (jeszcze) żyję" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Po co (jeszcze) żyję</div>
+            <div class="gallery-item-date">11 lutego 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0056_zaproszenie-w-roku-norwidowskim-z-pomoca.jpg"
+             data-title="ZAPROSZENIE w Roku Norwidowskim, z pomocą niezłomnego księdza Jastaka i Ministra"
+             data-date="3 lutego 2021"
+             data-slug="zaproszenie-w-roku-norwidowskim-z-pomoca-niezlomnego-ksiedza-jastaka-i-ministra--20210203">
+          <img src="photos/photo_0056_zaproszenie-w-roku-norwidowskim-z-pomoca.jpg" alt="ZAPROSZENIE w Roku Norwidowskim, z pomocą niezłomnego księdz" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">ZAPROSZENIE w Roku Norwidowskim, z pomocą niezłomnego księdza Jastaka i Ministra</div>
+            <div class="gallery-item-date">3 lutego 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0057_patologia-religijno-narodowa-pis-kep-ust.jpg"
+             data-title="Patologia religijno-narodowa PiS-KEP-ustroju! Brrr!"
+             data-date="1 lutego 2021"
+             data-slug="patologia-religijno-narodowa-pis-kep-ustroju-brrr-20210201">
+          <img src="photos/photo_0057_patologia-religijno-narodowa-pis-kep-ust.jpg" alt="Patologia religijno-narodowa PiS-KEP-ustroju! Brrr!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Patologia religijno-narodowa PiS-KEP-ustroju! Brrr!</div>
+            <div class="gallery-item-date">1 lutego 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0058_uderzmy-w-sedno-podzialow-mentalnych-czy.jpg"
+             data-title="Uderzmy w sedno... PODZIAŁÓW - mentalnych, czyli i politycznych i religijnych. F"
+             data-date="30 stycznia 2021"
+             data-slug="uderzmy-w-sedno-podzialow-mentalnych-czyli-i-politycznych-i-religijnych-fsspx-2-20210130">
+          <img src="photos/photo_0058_uderzmy-w-sedno-podzialow-mentalnych-czy.jpg" alt="Uderzmy w sedno... PODZIAŁÓW - mentalnych, czyli i polityczn" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Uderzmy w sedno... PODZIAŁÓW - mentalnych, czyli i politycznych i religijnych. F</div>
+            <div class="gallery-item-date">30 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0059_uderzmy-w-sedno-polskich-spraw-polskich-.jpg"
+             data-title="Uderzmy w sedno polskich spraw, polskich PODZIAŁÓW - mentalnych, czyli i polityc"
+             data-date="26 stycznia 2021"
+             data-slug="uderzmy-w-sedno-polskich-spraw-polskich-podzialow-mentalnych-czyli-i-politycznyc-20210126">
+          <img src="photos/photo_0059_uderzmy-w-sedno-polskich-spraw-polskich-.jpg" alt="Uderzmy w sedno polskich spraw, polskich PODZIAŁÓW - mentaln" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Uderzmy w sedno polskich spraw, polskich PODZIAŁÓW - mentalnych, czyli i polityc</div>
+            <div class="gallery-item-date">26 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0060_miedzypokoleniowe-rozwazania-o-mszy-zyci.jpg"
+             data-title="Międzypokoleniowe rozważania o mszy, życiu, realizmie plus+ ksiądz, Internauta, "
+             data-date="23 stycznia 2021"
+             data-slug="miedzypokoleniowe-rozwazania-o-mszy-zyciu-realizmie-plus-ksiadz-internauta-portu-20210123">
+          <img src="photos/photo_0060_miedzypokoleniowe-rozwazania-o-mszy-zyci.jpg" alt="Międzypokoleniowe rozważania o mszy, życiu, realizmie plus+ " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Międzypokoleniowe rozważania o mszy, życiu, realizmie plus+ ksiądz, Internauta, </div>
+            <div class="gallery-item-date">23 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0061_przeciw-abp-jedraszewskiemu-niemoralnosc.jpg"
+             data-title="Przeciw abp. Jędraszewskiemu - niemoralność PiS-KEP-ustroju (2)"
+             data-date="20 stycznia 2021"
+             data-slug="przeciw-abp-jedraszewskiemu-niemoralnosc-pis-kep-ustroju-2-20210120">
+          <img src="photos/photo_0061_przeciw-abp-jedraszewskiemu-niemoralnosc.jpg" alt="Przeciw abp. Jędraszewskiemu - niemoralność PiS-KEP-ustroju " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Przeciw abp. Jędraszewskiemu - niemoralność PiS-KEP-ustroju (2)</div>
+            <div class="gallery-item-date">20 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0062_przeciw-kaczynskiemu-niemoralnosc-pis-ke.jpg"
+             data-title="Przeciw Kaczyńskiemu - niemoralność PiS-KEP-ustroju (1)"
+             data-date="19 stycznia 2021"
+             data-slug="przeciw-kaczynskiemu-niemoralnosc-pis-kep-ustroju-1-20210119">
+          <img src="photos/photo_0062_przeciw-kaczynskiemu-niemoralnosc-pis-ke.jpg" alt="Przeciw Kaczyńskiemu - niemoralność PiS-KEP-ustroju (1)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Przeciw Kaczyńskiemu - niemoralność PiS-KEP-ustroju (1)</div>
+            <div class="gallery-item-date">19 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0063_zaszczepic-po-prl-czyli-ustrojowe-bagno-.jpg"
+             data-title="Zaszczepić po PRL, czyli ustrojowe bagno - o tym trzeba mówić (krzyczeć)"
+             data-date="5 stycznia 2021"
+             data-slug="zaszczepic-po-prl-czyli-ustrojowe-bagno-o-tym-trzeba-mowic-krzyczec-20210105">
+          <img src="photos/photo_0063_zaszczepic-po-prl-czyli-ustrojowe-bagno-.jpg" alt="Zaszczepić po PRL, czyli ustrojowe bagno - o tym trzeba mówi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Zaszczepić po PRL, czyli ustrojowe bagno - o tym trzeba mówić (krzyczeć)</div>
+            <div class="gallery-item-date">5 stycznia 2021</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0064_strachowka-historia-walki-z-norwidem-wal.jpg"
+             data-title="STRACHÓWKA - historia walki z Norwidem. Walka o prawdę i prawa człowieka 2021"
+             data-date="31 grudnia 2020"
+             data-slug="strachowka-historia-walki-z-norwidem-walka-o-prawde-i-prawa-czlowieka-2021-20201231">
+          <img src="photos/photo_0064_strachowka-historia-walki-z-norwidem-wal.jpg" alt="STRACHÓWKA - historia walki z Norwidem. Walka o prawdę i pra" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">STRACHÓWKA - historia walki z Norwidem. Walka o prawdę i prawa człowieka 2021</div>
+            <div class="gallery-item-date">31 grudnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0065_poezja-cypriana-norwida-a-teoria-dziela-.jpg"
+             data-title="Poezja Cypriana Norwida a teoria dzieła literackiego Romana Ingardena"
+             data-date="18 grudnia 2020"
+             data-slug="poezja-cypriana-norwida-a-teoria-dziela-literackiego-romana-ingardena-20201218">
+          <img src="photos/photo_0065_poezja-cypriana-norwida-a-teoria-dziela-.jpg" alt="Poezja Cypriana Norwida a teoria dzieła literackiego Romana " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Poezja Cypriana Norwida a teoria dzieła literackiego Romana Ingardena</div>
+            <div class="gallery-item-date">18 grudnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0066_moj-13-grudnia-1981-20201213.jpg"
+             data-title="Mój 13 Grudnia 1981"
+             data-date="13 grudnia 2020"
+             data-slug="moj-13-grudnia-1981-20201213">
+          <img src="photos/photo_0066_moj-13-grudnia-1981-20201213.jpg" alt="Mój 13 Grudnia 1981" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mój 13 Grudnia 1981</div>
+            <div class="gallery-item-date">13 grudnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0067_gminna-komisja-kultury-metodologicznie-o.jpg"
+             data-title="Gminna Komisja Kultury - metodologicznie o 200. rocznicy urodzin Norwida w gmini"
+             data-date="14 listopada 2020"
+             data-slug="gminna-komisja-kultury-metodologicznie-o-200-rocznicy-urodzin-norwida-w-gminie-s-20201114">
+          <img src="photos/photo_0067_gminna-komisja-kultury-metodologicznie-o.jpg" alt="Gminna Komisja Kultury - metodologicznie o 200. rocznicy uro" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Gminna Komisja Kultury - metodologicznie o 200. rocznicy urodzin Norwida w gmini</div>
+            <div class="gallery-item-date">14 listopada 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0068_nie-strasz-grzechem-siostry-ani-brata-sw.jpg"
+             data-title="Nie strasz grzechem siostry ani brata swego! Non abbiate paura!"
+             data-date="1 listopada 2020"
+             data-slug="nie-strasz-grzechem-siostry-ani-brata-swego-non-abbiate-paura-20201101">
+          <img src="photos/photo_0068_nie-strasz-grzechem-siostry-ani-brata-sw.jpg" alt="Nie strasz grzechem siostry ani brata swego! Non abbiate pau" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Nie strasz grzechem siostry ani brata swego! Non abbiate paura!</div>
+            <div class="gallery-item-date">1 listopada 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0069_czy-mozna-zapomniec-likwidacja-getta-w-j.jpg"
+             data-title="Czy można zapomnieć? - likwidacja getta w Jadowie - Wspólna Polska?!"
+             data-date="17 października 2020"
+             data-slug="czy-mozna-zapomniec-likwidacja-getta-w-jadowie-wspolna-polska-20201017">
+          <img src="photos/photo_0069_czy-mozna-zapomniec-likwidacja-getta-w-j.jpg" alt="Czy można zapomnieć? - likwidacja getta w Jadowie - Wspólna " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Czy można zapomnieć? - likwidacja getta w Jadowie - Wspólna Polska?!</div>
+            <div class="gallery-item-date">17 października 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0070_ksiedzu-profesorowi-alfredowi-wierzbicki.jpg"
+             data-title="Księdzu Profesorowi Alfredowi Wierzbickiemu z Katolickiego Uniwersytetu Lubelski"
+             data-date="6 października 2020"
+             data-slug="ksiedzu-profesorowi-alfredowi-wierzbickiemu-z-katolickiego-uniwersytetu-lubelski-20201006">
+          <img src="photos/photo_0070_ksiedzu-profesorowi-alfredowi-wierzbicki.jpg" alt="Księdzu Profesorowi Alfredowi Wierzbickiemu z Katolickiego U" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Księdzu Profesorowi Alfredowi Wierzbickiemu z Katolickiego Uniwersytetu Lubelski</div>
+            <div class="gallery-item-date">6 października 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0071_po-co-pis-kep-ustrojowi-spor-o-lgbt-2020.jpg"
+             data-title="Po co PiS-KEP-ustrojowi spór o LGBT?"
+             data-date="2 października 2020"
+             data-slug="po-co-pis-kep-ustrojowi-spor-o-lgbt-20201002">
+          <img src="photos/photo_0071_po-co-pis-kep-ustrojowi-spor-o-lgbt-2020.jpg" alt="Po co PiS-KEP-ustrojowi spór o LGBT?" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Po co PiS-KEP-ustrojowi spór o LGBT?</div>
+            <div class="gallery-item-date">2 października 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0072_tworzenie-nowej-rzeczywistosci-gwalt-pis.jpg"
+             data-title="Tworzenie nowej rzeczywistości (gwałt PiS-KEP-ustroju na rozumie i kulturze czło"
+             data-date="21 września 2020"
+             data-slug="tworzenie-nowej-rzeczywistosci-gwalt-pis-kep-ustroju-na-rozumie-i-kulturze-czlow-20200921">
+          <img src="photos/photo_0072_tworzenie-nowej-rzeczywistosci-gwalt-pis.jpg" alt="Tworzenie nowej rzeczywistości (gwałt PiS-KEP-ustroju na roz" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Tworzenie nowej rzeczywistości (gwałt PiS-KEP-ustroju na rozumie i kulturze czło</div>
+            <div class="gallery-item-date">21 września 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0073_gwalt-pis-kep-ustroju-na-rozumie-i-kultu.jpg"
+             data-title="Gwałt PiS-KEP-ustroju na rozumie i kulturze człowieka na ziemi"
+             data-date="11 września 2020"
+             data-slug="gwalt-pis-kep-ustroju-na-rozumie-i-kulturze-czlowieka-na-ziemi-20200911">
+          <img src="photos/photo_0073_gwalt-pis-kep-ustroju-na-rozumie-i-kultu.jpg" alt="Gwałt PiS-KEP-ustroju na rozumie i kulturze człowieka na zie" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Gwałt PiS-KEP-ustroju na rozumie i kulturze człowieka na ziemi</div>
+            <div class="gallery-item-date">11 września 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0074_ojczyzna-polska-niszczona-falszem-pis-ke.jpg"
+             data-title="Ojczyzna, POLSKA, niszczona fałszem PiS-KEP-ustroju! Deprywacja, deprawacja, dem"
+             data-date="7 sierpnia 2020"
+             data-slug="ojczyzna-polska-niszczona-falszem-pis-kep-ustroju-deprywacja-deprawacja-demorali-20200807">
+          <img src="photos/photo_0074_ojczyzna-polska-niszczona-falszem-pis-ke.jpg" alt="Ojczyzna, POLSKA, niszczona fałszem PiS-KEP-ustroju! Deprywa" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ojczyzna, POLSKA, niszczona fałszem PiS-KEP-ustroju! Deprywacja, deprawacja, dem</div>
+            <div class="gallery-item-date">7 sierpnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0075_piss-kultura-czyli-mentalnosc-pis-kep-ka.jpg"
+             data-title="Piss-kultura+, czyli mentalność PiS-KEP-katolicko-narodowa"
+             data-date="5 sierpnia 2020"
+             data-slug="piss-kultura-czyli-mentalnosc-pis-kep-katolicko-narodowa-20200805">
+          <img src="photos/photo_0075_piss-kultura-czyli-mentalnosc-pis-kep-ka.jpg" alt="Piss-kultura+, czyli mentalność PiS-KEP-katolicko-narodowa" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Piss-kultura+, czyli mentalność PiS-KEP-katolicko-narodowa</div>
+            <div class="gallery-item-date">5 sierpnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0076_schizma-po-polsku-lordre-regne-a-varsovi.jpg"
+             data-title="Schizma po polsku? L'ordre règne à Varsovie i schizma naszych czasów?"
+             data-date="4 sierpnia 2020"
+             data-slug="schizma-po-polsku-lordre-regne-a-varsovie-i-schizma-naszych-czasow-20200804">
+          <img src="photos/photo_0076_schizma-po-polsku-lordre-regne-a-varsovi.jpg" alt="Schizma po polsku? L'ordre règne à Varsovie i schizma naszyc" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Schizma po polsku? L'ordre règne à Varsovie i schizma naszych czasów?</div>
+            <div class="gallery-item-date">4 sierpnia 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0077_dziel-przemilczaj-i-rzadz-polska-i-swiat.jpg"
+             data-title="DZIEL, PRZEMILCZAJ i RZĄDŹ. Polska i świat według PiS-KEP-ustroju od 2015 "
+             data-date="31 lipca 2020"
+             data-slug="dziel-przemilczaj-i-rzadz-polska-i-swiat-wedlug-pis-kep-ustroju-od-2015-20200731">
+          <img src="photos/photo_0077_dziel-przemilczaj-i-rzadz-polska-i-swiat.jpg" alt="DZIEL, PRZEMILCZAJ i RZĄDŹ. Polska i świat według PiS-KEP-us" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">DZIEL, PRZEMILCZAJ i RZĄDŹ. Polska i świat według PiS-KEP-ustroju od 2015 </div>
+            <div class="gallery-item-date">31 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0078_roman-ingarden-filozof-i-fotograf-philos.jpg"
+             data-title="Roman Ingarden „Filozof i fotograf” | 'Philosopher and Photographer'"
+             data-date="30 lipca 2020"
+             data-slug="roman-ingarden-filozof-i-fotograf-philosopher-and-photographer-20200730">
+          <img src="photos/photo_0078_roman-ingarden-filozof-i-fotograf-philos.jpg" alt="Roman Ingarden „Filozof i fotograf” | 'Philosopher and Photo" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Roman Ingarden „Filozof i fotograf” | 'Philosopher and Photographer'</div>
+            <div class="gallery-item-date">30 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0079_w-obronie-warszawy-rzeczpospolita-norwid.jpg"
+             data-title="W obronie WARSZAWY! Rzeczpospolita Norwidowska!?"
+             data-date="28 lipca 2020"
+             data-slug="w-obronie-warszawy-rzeczpospolita-norwidowska-20200728">
+          <img src="photos/photo_0079_w-obronie-warszawy-rzeczpospolita-norwid.jpg" alt="W obronie WARSZAWY! Rzeczpospolita Norwidowska!?" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">W obronie WARSZAWY! Rzeczpospolita Norwidowska!?</div>
+            <div class="gallery-item-date">28 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0080_mozliwosc-teologii-jako-fenomenologii-pr.jpg"
+             data-title="Możliwość teologii jako fenomenologii. Przyczynki osobiste bardzo."
+             data-date="26 lipca 2020"
+             data-slug="mozliwosc-teologii-jako-fenomenologii-przyczynki-osobiste-bardzo-20200726">
+          <img src="photos/photo_0080_mozliwosc-teologii-jako-fenomenologii-pr.jpg" alt="Możliwość teologii jako fenomenologii. Przyczynki osobiste b" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Możliwość teologii jako fenomenologii. Przyczynki osobiste bardzo.</div>
+            <div class="gallery-item-date">26 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0081_szkola-bez-dyrektora-czyli-o-co-chodzi-w.jpg"
+             data-title="SZKOŁA BEZ DYREKTORA - czyli o co chodzi w Węgrowie, Łochowie, Strachówce... Pol"
+             data-date="25 lipca 2020"
+             data-slug="szkola-bez-dyrektora-czyli-o-co-chodzi-w-wegrowie-lochowie-strachowce-polsce-202-20200725">
+          <img src="photos/photo_0081_szkola-bez-dyrektora-czyli-o-co-chodzi-w.jpg" alt="SZKOŁA BEZ DYREKTORA - czyli o co chodzi w Węgrowie, Łochowi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">SZKOŁA BEZ DYREKTORA - czyli o co chodzi w Węgrowie, Łochowie, Strachówce... Pol</div>
+            <div class="gallery-item-date">25 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0082_pl2020-piss-katolicka-demomonstrancja-cz.jpg"
+             data-title="PL.2020 - Piss-katolicka demo...mon...stran...cja cze-czego?"
+             data-date="24 lipca 2020"
+             data-slug="pl2020-piss-katolicka-demomonstrancja-cze-czego-20200724">
+          <img src="photos/photo_0082_pl2020-piss-katolicka-demomonstrancja-cz.jpg" alt="PL.2020 - Piss-katolicka demo...mon...stran...cja cze-czego?" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PL.2020 - Piss-katolicka demo...mon...stran...cja cze-czego?</div>
+            <div class="gallery-item-date">24 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0083_zloty-rog-czy-klucze-krolestwa-felieton-.jpg"
+             data-title="Złoty róg, czy klucze królestwa? Felieton? Esej? ŻYCIE.PL.2020"
+             data-date="20 lipca 2020"
+             data-slug="zloty-rog-czy-klucze-krolestwa-felieton-esej-zyciepl2020-20200720">
+          <img src="photos/photo_0083_zloty-rog-czy-klucze-krolestwa-felieton-.jpg" alt="Złoty róg, czy klucze królestwa? Felieton? Esej? ŻYCIE.PL.20" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Złoty róg, czy klucze królestwa? Felieton? Esej? ŻYCIE.PL.2020</div>
+            <div class="gallery-item-date">20 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0084_polskie-schematy-i-uprzedzenia-nie-dla-n.jpg"
+             data-title="Polskie schematy i uprzedzenia (nie dla nich żyłem)"
+             data-date="19 lipca 2020"
+             data-slug="polskie-schematy-i-uprzedzenia-nie-dla-nich-zylem-20200719">
+          <img src="photos/photo_0084_polskie-schematy-i-uprzedzenia-nie-dla-n.jpg" alt="Polskie schematy i uprzedzenia (nie dla nich żyłem)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polskie schematy i uprzedzenia (nie dla nich żyłem)</div>
+            <div class="gallery-item-date">19 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0085_kosciele-w-polsce-gdzie-jestes-20200717.jpg"
+             data-title="Kościele w Polsce, gdzie jesteś!"
+             data-date="17 lipca 2020"
+             data-slug="kosciele-w-polsce-gdzie-jestes-20200717">
+          <img src="photos/photo_0085_kosciele-w-polsce-gdzie-jestes-20200717.jpg" alt="Kościele w Polsce, gdzie jesteś!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Kościele w Polsce, gdzie jesteś!</div>
+            <div class="gallery-item-date">17 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0086_godzilla-atakuje-pis-kep-ustroj-i-osmies.jpg"
+             data-title="Godzilla atakuje! PiS-KEP-ustrój i ośmieszanie religii."
+             data-date="16 lipca 2020"
+             data-slug="godzilla-atakuje-pis-kep-ustroj-i-osmieszanie-religii-20200716">
+          <img src="photos/photo_0086_godzilla-atakuje-pis-kep-ustroj-i-osmies.jpg" alt="Godzilla atakuje! PiS-KEP-ustrój i ośmieszanie religii." loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Godzilla atakuje! PiS-KEP-ustrój i ośmieszanie religii.</div>
+            <div class="gallery-item-date">16 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0087_sztuka-zwana-naiwna-i-co-dalej-sp-prof-a.jpg"
+             data-title="SZTUKA ZWANA NAIWNĄ I CO DALEJ... /śp. prof. Al. Jackowski/"
+             data-date="13 lipca 2020"
+             data-slug="sztuka-zwana-naiwna-i-co-dalej-sp-prof-al-jackowski-20200713">
+          <img src="photos/photo_0087_sztuka-zwana-naiwna-i-co-dalej-sp-prof-a.jpg" alt="SZTUKA ZWANA NAIWNĄ I CO DALEJ... /śp. prof. Al. Jackowski/" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">SZTUKA ZWANA NAIWNĄ I CO DALEJ... /śp. prof. Al. Jackowski/</div>
+            <div class="gallery-item-date">13 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0088_dzien-wyborczy-z-prof-stawrowskim-202007.jpg"
+             data-title="Dzień wyborczy z prof. Stawrowskim"
+             data-date="12 lipca 2020"
+             data-slug="dzien-wyborczy-z-prof-stawrowskim-20200712">
+          <img src="photos/photo_0088_dzien-wyborczy-z-prof-stawrowskim-202007.jpg" alt="Dzień wyborczy z prof. Stawrowskim" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dzień wyborczy z prof. Stawrowskim</div>
+            <div class="gallery-item-date">12 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0089_ruszaj-z-bogiem-nierozmowy-niewierzacych.jpg"
+             data-title=""RUSZAJ Z BOGIEM" - (nie)rozmowy (nie)wierzących Polek i Polaków "
+             data-date="11 lipca 2020"
+             data-slug="ruszaj-z-bogiem-nierozmowy-niewierzacych-polek-i-polakow-20200711">
+          <img src="photos/photo_0089_ruszaj-z-bogiem-nierozmowy-niewierzacych.jpg" alt=""RUSZAJ Z BOGIEM" - (nie)rozmowy (nie)wierzących Polek i Pol" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">"RUSZAJ Z BOGIEM" - (nie)rozmowy (nie)wierzących Polek i Polaków </div>
+            <div class="gallery-item-date">11 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0090_narracja-a-dudy-jakby-prawdy-i-boga-nie-.jpg"
+             data-title="Narracja A. DUDY - jakby prawdy i Boga nie było (ostry cień mgły)"
+             data-date="10 lipca 2020"
+             data-slug="narracja-a-dudy-jakby-prawdy-i-boga-nie-bylo-ostry-cien-mgly-20200710">
+          <img src="photos/photo_0090_narracja-a-dudy-jakby-prawdy-i-boga-nie-.jpg" alt="Narracja A. DUDY - jakby prawdy i Boga nie było (ostry cień " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Narracja A. DUDY - jakby prawdy i Boga nie było (ostry cień mgły)</div>
+            <div class="gallery-item-date">10 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0091_dlaczego-trzaskowski-jaka-polske-wybiera.jpg"
+             data-title="Dlaczego Trzaskowski - jaką Polskę wybieram (i Boga), wybierajac Trzaskowskiego"
+             data-date="9 lipca 2020"
+             data-slug="dlaczego-trzaskowski-jaka-polske-wybieram-i-boga-wybierajac-trzaskowskiego-20200709">
+          <img src="photos/photo_0091_dlaczego-trzaskowski-jaka-polske-wybiera.jpg" alt="Dlaczego Trzaskowski - jaką Polskę wybieram (i Boga), wybier" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dlaczego Trzaskowski - jaką Polskę wybieram (i Boga), wybierajac Trzaskowskiego</div>
+            <div class="gallery-item-date">9 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0092_mezowie-zaufania-na-12-lipca-2020-instru.jpg"
+             data-title="Mężowie zaufania na 12 lipca 2020 - instrukcja"
+             data-date="8 lipca 2020"
+             data-slug="mezowie-zaufania-na-12-lipca-2020-instrukcja-20200708">
+          <img src="photos/photo_0092_mezowie-zaufania-na-12-lipca-2020-instru.jpg" alt="Mężowie zaufania na 12 lipca 2020 - instrukcja" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mężowie zaufania na 12 lipca 2020 - instrukcja</div>
+            <div class="gallery-item-date">8 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0093_co-mi-dala-kampania-rafala-trzaskowskieg.jpg"
+             data-title="Co mi dała kampania Rafała Trzaskowskiego (już)!"
+             data-date="6 lipca 2020"
+             data-slug="co-mi-dala-kampania-rafala-trzaskowskiego-juz-20200706">
+          <img src="photos/photo_0093_co-mi-dala-kampania-rafala-trzaskowskieg.jpg" alt="Co mi dała kampania Rafała Trzaskowskiego (już)!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Co mi dała kampania Rafała Trzaskowskiego (już)!</div>
+            <div class="gallery-item-date">6 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0094_polska-rozdyskutowana-wreszcie-falszywa-.jpg"
+             data-title="Polska rozdyskutowana (wreszcie)! Fałszywa antropologia, czyli antyhumanizm PiS-"
+             data-date="5 lipca 2020"
+             data-slug="polska-rozdyskutowana-wreszcie-falszywa-antropologia-czyli-antyhumanizm-pis-u-pi-20200705">
+          <img src="photos/photo_0094_polska-rozdyskutowana-wreszcie-falszywa-.jpg" alt="Polska rozdyskutowana (wreszcie)! Fałszywa antropologia, czy" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska rozdyskutowana (wreszcie)! Fałszywa antropologia, czyli antyhumanizm PiS-</div>
+            <div class="gallery-item-date">5 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0095_wybory-a-wiara-religia-i-kosciol-2020070.jpg"
+             data-title="Wybory a wiara, religia i Kościół"
+             data-date="4 lipca 2020"
+             data-slug="wybory-a-wiara-religia-i-kosciol-20200704">
+          <img src="photos/photo_0095_wybory-a-wiara-religia-i-kosciol-2020070.jpg" alt="Wybory a wiara, religia i Kościół" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Wybory a wiara, religia i Kościół</div>
+            <div class="gallery-item-date">4 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0096_idealy-siostra-brat-rodak-i-blizni-czy-s.jpg"
+             data-title="Ideały - siostra, brat, Rodak i bliźni, czy szowinista-Polak-katolik"
+             data-date="3 lipca 2020"
+             data-slug="idealy-siostra-brat-rodak-i-blizni-czy-szowinista-polak-katolik-20200703">
+          <img src="photos/photo_0096_idealy-siostra-brat-rodak-i-blizni-czy-s.jpg" alt="Ideały - siostra, brat, Rodak i bliźni, czy szowinista-Polak" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ideały - siostra, brat, Rodak i bliźni, czy szowinista-Polak-katolik</div>
+            <div class="gallery-item-date">3 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0097_mam-tego-dosc-od-pieciu-lat-ustrojowego-.jpg"
+             data-title="Mam tego dość - od pięciu lat ustrojowego gwałtu w biały dzień i czarną noc na r"
+             data-date="2 lipca 2020"
+             data-slug="mam-tego-dosc-od-pieciu-lat-ustrojowego-gwaltu-w-bialy-dzien-i-czarna-noc-na-roz-20200702">
+          <img src="photos/photo_0097_mam-tego-dosc-od-pieciu-lat-ustrojowego-.jpg" alt="Mam tego dość - od pięciu lat ustrojowego gwałtu w biały dzi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mam tego dość - od pięciu lat ustrojowego gwałtu w biały dzień i czarną noc na r</div>
+            <div class="gallery-item-date">2 lipca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0098_drogi-i-prawda-naszych-wyborow-antropolo.jpg"
+             data-title="Drogi i prawda naszych wyborów (antropologia i teologia wyborcza)"
+             data-date="30 czerwca 2020"
+             data-slug="drogi-i-prawda-naszych-wyborow-antropologia-i-teologia-wyborcza-20200630">
+          <img src="photos/photo_0098_drogi-i-prawda-naszych-wyborow-antropolo.jpg" alt="Drogi i prawda naszych wyborów (antropologia i teologia wybo" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Drogi i prawda naszych wyborów (antropologia i teologia wyborcza)</div>
+            <div class="gallery-item-date">30 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0099_trzaskowskiemu-z-polskiej-wsi-i-powiatu-.jpg"
+             data-title="Trzaskowskiemu - z polskiej wsi i powiatu (Annopol, Rozalin, Wołomin)"
+             data-date="29 czerwca 2020"
+             data-slug="trzaskowskiemu-z-polskiej-wsi-i-powiatu-annopol-rozalin-wolomin-20200629">
+          <img src="photos/photo_0099_trzaskowskiemu-z-polskiej-wsi-i-powiatu-.jpg" alt="Trzaskowskiemu - z polskiej wsi i powiatu (Annopol, Rozalin," loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Trzaskowskiemu - z polskiej wsi i powiatu (Annopol, Rozalin, Wołomin)</div>
+            <div class="gallery-item-date">29 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0100_filozofia-drogi-prawdy-zycia-propozycja-.jpg"
+             data-title="Filozofia Drogi-Prawdy-Życia. Propozycja"
+             data-date="25 czerwca 2020"
+             data-slug="filozofia-drogi-prawdy-zycia-propozycja-20200625">
+          <img src="photos/photo_0100_filozofia-drogi-prawdy-zycia-propozycja-.jpg" alt="Filozofia Drogi-Prawdy-Życia. Propozycja" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Filozofia Drogi-Prawdy-Życia. Propozycja</div>
+            <div class="gallery-item-date">25 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0101_pis-kep-ustroj-manipuluje-religia-hola-h.jpg"
+             data-title="PiS-KEP-ustrój manipuluje religią. Hola-hola!"
+             data-date="24 czerwca 2020"
+             data-slug="pis-kep-ustroj-manipuluje-religia-hola-hola-20200624">
+          <img src="photos/photo_0101_pis-kep-ustroj-manipuluje-religia-hola-h.jpg" alt="PiS-KEP-ustrój manipuluje religią. Hola-hola!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PiS-KEP-ustrój manipuluje religią. Hola-hola!</div>
+            <div class="gallery-item-date">24 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0102_implikacje-filozoficzne-spoleczno-polity.jpg"
+             data-title="Implikacje filozoficzne, społeczno-polityczne, teologiczne"
+             data-date="22 czerwca 2020"
+             data-slug="implikacje-filozoficzne-spoleczno-polityczne-teologiczne-20200622">
+          <img src="photos/photo_0102_implikacje-filozoficzne-spoleczno-polity.jpg" alt="Implikacje filozoficzne, społeczno-polityczne, teologiczne" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Implikacje filozoficzne, społeczno-polityczne, teologiczne</div>
+            <div class="gallery-item-date">22 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0103_po-co-zyje-jeszcze-o-ustroju-pis-kep-u-2.jpg"
+             data-title="Po co żyję (jeszcze) - o ustroju PiS-KEP-u"
+             data-date="19 czerwca 2020"
+             data-slug="po-co-zyje-jeszcze-o-ustroju-pis-kep-u-20200619">
+          <img src="photos/photo_0103_po-co-zyje-jeszcze-o-ustroju-pis-kep-u-2.jpg" alt="Po co żyję (jeszcze) - o ustroju PiS-KEP-u" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Po co żyję (jeszcze) - o ustroju PiS-KEP-u</div>
+            <div class="gallery-item-date">19 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0104_smierc-i-zycie-w-przestrzeni-publicznej-.jpg"
+             data-title="Śmierć i życie w przestrzeni publicznej"
+             data-date="17 czerwca 2020"
+             data-slug="smierc-i-zycie-w-przestrzeni-publicznej-20200617">
+          <img src="photos/photo_0104_smierc-i-zycie-w-przestrzeni-publicznej-.jpg" alt="Śmierć i życie w przestrzeni publicznej" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Śmierć i życie w przestrzeni publicznej</div>
+            <div class="gallery-item-date">17 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0105_ustroj-pis-kep-u-trzeszczy-sypie-sie-202.jpg"
+             data-title="Ustrój PiS-KEP-u trzeszczy. Sypie się!"
+             data-date="17 czerwca 2020"
+             data-slug="ustroj-pis-kep-u-trzeszczy-sypie-sie-20200617">
+          <img src="photos/photo_0105_ustroj-pis-kep-u-trzeszczy-sypie-sie-202.jpg" alt="Ustrój PiS-KEP-u trzeszczy. Sypie się!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ustrój PiS-KEP-u trzeszczy. Sypie się!</div>
+            <div class="gallery-item-date">17 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0106_standardy-pis-kep-ustroju-pis-kep-ludzi-.jpg"
+             data-title="Standardy PiS-KEP-ustroju (PiS-KEP-ludzi), czyli bałwochwalstwo Prezesa"
+             data-date="11 czerwca 2020"
+             data-slug="standardy-pis-kep-ustroju-pis-kep-ludzi-czyli-balwochwalstwo-prezesa-20200611">
+          <img src="photos/photo_0106_standardy-pis-kep-ustroju-pis-kep-ludzi-.jpg" alt="Standardy PiS-KEP-ustroju (PiS-KEP-ludzi), czyli bałwochwals" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Standardy PiS-KEP-ustroju (PiS-KEP-ludzi), czyli bałwochwalstwo Prezesa</div>
+            <div class="gallery-item-date">11 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0107_moj-ksiadz-moj-kosciol-sp-stanislaw-walc.jpg"
+             data-title="Mój ksiądz, mój Kościół - śp Stanisław Walczak (w Rzeczpospolitej Norwidowskiej)"
+             data-date="10 czerwca 2020"
+             data-slug="moj-ksiadz-moj-kosciol-sp-stanislaw-walczak-w-rzeczpospolitej-norwidowskiej-20200610">
+          <img src="photos/photo_0107_moj-ksiadz-moj-kosciol-sp-stanislaw-walc.jpg" alt="Mój ksiądz, mój Kościół - śp Stanisław Walczak (w Rzeczpospo" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mój ksiądz, mój Kościół - śp Stanisław Walczak (w Rzeczpospolitej Norwidowskiej)</div>
+            <div class="gallery-item-date">10 czerwca 2020</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0108_prp-powazne-rozmowy-polakow-uratowac-dla.jpg"
+             data-title="PRP - Poważne Rozmowy Polaków. Uratować dla dobra wspólnego, od zapomnienia! (1)"
+             data-date="29 października 2019"
+             data-slug="prp-powazne-rozmowy-polakow-uratowac-dla-dobra-wspolnego-od-zapomnienia-1-20191029">
+          <img src="photos/photo_0108_prp-powazne-rozmowy-polakow-uratowac-dla.jpg" alt="PRP - Poważne Rozmowy Polaków. Uratować dla dobra wspólnego," loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PRP - Poważne Rozmowy Polaków. Uratować dla dobra wspólnego, od zapomnienia! (1)</div>
+            <div class="gallery-item-date">29 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0109_ziarno-solidarnosci-po-40-latach-i-wiece.jpg"
+             data-title="Ziarno Solidarności po 40 latach i więcej (B)"
+             data-date="25 października 2019"
+             data-slug="ziarno-solidarnosci-po-40-latach-i-wiecej-b-20191025">
+          <img src="photos/photo_0109_ziarno-solidarnosci-po-40-latach-i-wiece.jpg" alt="Ziarno Solidarności po 40 latach i więcej (B)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ziarno Solidarności po 40 latach i więcej (B)</div>
+            <div class="gallery-item-date">25 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0110_strachowka-rzn-w-soczewce-spraw-polskich.jpg"
+             data-title="Strachówka (RzN) w soczewce spraw polskich. Zdrady pamięci i tożsamości! (A)"
+             data-date="23 października 2019"
+             data-slug="strachowka-rzn-w-soczewce-spraw-polskich-zdrady-pamieci-i-tozsamosci-a-20191023">
+          <img src="photos/photo_0110_strachowka-rzn-w-soczewce-spraw-polskich.jpg" alt="Strachówka (RzN) w soczewce spraw polskich. Zdrady pamięci i" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Strachówka (RzN) w soczewce spraw polskich. Zdrady pamięci i tożsamości! (A)</div>
+            <div class="gallery-item-date">23 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0111_zdrada-ukorzeniona-i-bycie-zdradzonym-20.jpg"
+             data-title="Zdrada ukorzeniona i bycie zdradzonym"
+             data-date="21 października 2019"
+             data-slug="zdrada-ukorzeniona-i-bycie-zdradzonym-20191021">
+          <img src="photos/photo_0111_zdrada-ukorzeniona-i-bycie-zdradzonym-20.jpg" alt="Zdrada ukorzeniona i bycie zdradzonym" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Zdrada ukorzeniona i bycie zdradzonym</div>
+            <div class="gallery-item-date">21 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0112_bogactwo-nieprzebrane-trudny-piekny-dzie.jpg"
+             data-title="Bogactwo nieprzebrane! Trudny piękny dzień, czyli Kościół i Polska 2019 (przeciw"
+             data-date="19 października 2019"
+             data-slug="bogactwo-nieprzebrane-trudny-piekny-dzien-czyli-kosciol-i-polska-2019-przeciwko--20191019">
+          <img src="photos/photo_0112_bogactwo-nieprzebrane-trudny-piekny-dzie.jpg" alt="Bogactwo nieprzebrane! Trudny piękny dzień, czyli Kościół i " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Bogactwo nieprzebrane! Trudny piękny dzień, czyli Kościół i Polska 2019 (przeciw</div>
+            <div class="gallery-item-date">19 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0113_sadny-dzien-w-strachowce-w-naszej-strach.jpg"
+             data-title="Sądny dzień w STRACHÓWCE (w naszej Strachóweczce)"
+             data-date="16 października 2019"
+             data-slug="sadny-dzien-w-strachowce-w-naszej-strachoweczce-20191016">
+          <img src="photos/photo_0113_sadny-dzien-w-strachowce-w-naszej-strach.jpg" alt="Sądny dzień w STRACHÓWCE (w naszej Strachóweczce)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Sądny dzień w STRACHÓWCE (w naszej Strachóweczce)</div>
+            <div class="gallery-item-date">16 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0114_nobel-prawda-kultura-polityka-i-diabelst.jpg"
+             data-title="Nobel-prawda-kultura-polityka i diabelstwo.pl"
+             data-date="11 października 2019"
+             data-slug="nobel-prawda-kultura-polityka-i-diabelstwopl-20191011">
+          <img src="photos/photo_0114_nobel-prawda-kultura-polityka-i-diabelst.jpg" alt="Nobel-prawda-kultura-polityka i diabelstwo.pl" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Nobel-prawda-kultura-polityka i diabelstwo.pl</div>
+            <div class="gallery-item-date">11 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0115_anty-pis-kep-polska-antyprymas-antykosci.jpg"
+             data-title="Anty PiS-KEP-Polska, antyprymas... antykościół.pl - Papieżu ratuj!"
+             data-date="10 października 2019"
+             data-slug="anty-pis-kep-polska-antyprymas-antykosciolpl-papiezu-ratuj-20191010">
+          <img src="photos/photo_0115_anty-pis-kep-polska-antyprymas-antykosci.jpg" alt="Anty PiS-KEP-Polska, antyprymas... antykościół.pl - Papieżu " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Anty PiS-KEP-Polska, antyprymas... antykościół.pl - Papieżu ratuj!</div>
+            <div class="gallery-item-date">10 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0116_w-jakim-swietle-polska-moja-i-pis-kep-u-.jpg"
+             data-title="W jakim świetle? - Polska moja i PiS-KEP-u"
+             data-date="9 października 2019"
+             data-slug="w-jakim-swietle-polska-moja-i-pis-kep-u-20191009">
+          <img src="photos/photo_0116_w-jakim-swietle-polska-moja-i-pis-kep-u-.jpg" alt="W jakim świetle? - Polska moja i PiS-KEP-u" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">W jakim świetle? - Polska moja i PiS-KEP-u</div>
+            <div class="gallery-item-date">9 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0117_polska-moja-i-pis-kep-u-tecza-zachwytu-i.jpg"
+             data-title="Polska moja i PiS-KEP-u. Tęcza zachwytu i jej brzydkie-agresywne oblicze."
+             data-date="7 października 2019"
+             data-slug="polska-moja-i-pis-kep-u-tecza-zachwytu-i-jej-brzydkie-agresywne-oblicze-20191007">
+          <img src="photos/photo_0117_polska-moja-i-pis-kep-u-tecza-zachwytu-i.jpg" alt="Polska moja i PiS-KEP-u. Tęcza zachwytu i jej brzydkie-agres" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska moja i PiS-KEP-u. Tęcza zachwytu i jej brzydkie-agresywne oblicze.</div>
+            <div class="gallery-item-date">7 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0118_obywatelskie-podrygi-i-pis-kep-polska-he.jpg"
+             data-title="Obywatelskie podrygi i  PiS-KEP-polska herezja"
+             data-date="5 października 2019"
+             data-slug="obywatelskie-podrygi-i-pis-kep-polska-herezja-20191005">
+          <img src="photos/photo_0118_obywatelskie-podrygi-i-pis-kep-polska-he.jpg" alt="Obywatelskie podrygi i  PiS-KEP-polska herezja" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Obywatelskie podrygi i  PiS-KEP-polska herezja</div>
+            <div class="gallery-item-date">5 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0119_obywatelska-debata-w-wolominie-20191004.jpg"
+             data-title="Obywatelska debata w Wołominie"
+             data-date="4 października 2019"
+             data-slug="obywatelska-debata-w-wolominie-20191004">
+          <img src="photos/photo_0119_obywatelska-debata-w-wolominie-20191004.jpg" alt="Obywatelska debata w Wołominie" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Obywatelska debata w Wołominie</div>
+            <div class="gallery-item-date">4 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0120_polska-broszura-antywyborcza-20191003.jpg"
+             data-title="Polska broszura (anty)wyborcza"
+             data-date="3 października 2019"
+             data-slug="polska-broszura-antywyborcza-20191003">
+          <img src="photos/photo_0120_polska-broszura-antywyborcza-20191003.jpg" alt="Polska broszura (anty)wyborcza" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska broszura (anty)wyborcza</div>
+            <div class="gallery-item-date">3 października 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0121_dziekuje-strachowko-20190928.jpg"
+             data-title="Dziękuję STRACHÓWKO!"
+             data-date="28 września 2019"
+             data-slug="dziekuje-strachowko-20190928">
+          <img src="photos/photo_0121_dziekuje-strachowko-20190928.jpg" alt="Dziękuję STRACHÓWKO!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dziękuję STRACHÓWKO!</div>
+            <div class="gallery-item-date">28 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0122_moj-katolicyzm-i-dzieci-20190927.jpg"
+             data-title="Mój katolicyzm i dzieci"
+             data-date="27 września 2019"
+             data-slug="moj-katolicyzm-i-dzieci-20190927">
+          <img src="photos/photo_0122_moj-katolicyzm-i-dzieci-20190927.jpg" alt="Mój katolicyzm i dzieci" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Mój katolicyzm i dzieci</div>
+            <div class="gallery-item-date">27 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0123_zgnilizna-moralna-pis-prezesa-i-pis-kep-.jpg"
+             data-title="Zgnilizna moralna PiS (Prezesa i PiS-KEP-ustroju.pl). OBRZYDLIWOŚĆ (OSOBO-USTROJ"
+             data-date="26 września 2019"
+             data-slug="zgnilizna-moralna-pis-prezesa-i-pis-kep-ustrojupl-obrzydliwosc-osobo-ustrojowa-20190926">
+          <img src="photos/photo_0123_zgnilizna-moralna-pis-prezesa-i-pis-kep-.jpg" alt="Zgnilizna moralna PiS (Prezesa i PiS-KEP-ustroju.pl). OBRZYD" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Zgnilizna moralna PiS (Prezesa i PiS-KEP-ustroju.pl). OBRZYDLIWOŚĆ (OSOBO-USTROJ</div>
+            <div class="gallery-item-date">26 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0124_pis-i-anty-pis-wzmozenie-antyaferalnie-2.jpg"
+             data-title="PiS i anty-PiS wzmożenie (antyaferalnie)"
+             data-date="25 września 2019"
+             data-slug="pis-i-anty-pis-wzmozenie-antyaferalnie-20190925">
+          <img src="photos/photo_0124_pis-i-anty-pis-wzmozenie-antyaferalnie-2.jpg" alt="PiS i anty-PiS wzmożenie (antyaferalnie)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PiS i anty-PiS wzmożenie (antyaferalnie)</div>
+            <div class="gallery-item-date">25 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0125_o-historii-prawdziwej-legionowo-i-polska.jpg"
+             data-title="O historii prawdziwej (Legionowo i Polska w Strachówce)"
+             data-date="24 września 2019"
+             data-slug="o-historii-prawdziwej-legionowo-i-polska-w-strachowce-20190924">
+          <img src="photos/photo_0125_o-historii-prawdziwej-legionowo-i-polska.jpg" alt="O historii prawdziwej (Legionowo i Polska w Strachówce)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O historii prawdziwej (Legionowo i Polska w Strachówce)</div>
+            <div class="gallery-item-date">24 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0126_objawienie-maz-ojciec-solidarnosciowiec-.jpg"
+             data-title="Objawienie. Mąż-ojciec-solidarnosciowiec-katecheta-samorządowiec-wspólnotowiec ("
+             data-date="23 września 2019"
+             data-slug="objawienie-maz-ojciec-solidarnosciowiec-katecheta-samorzadowiec-wspolnotowiec-ni-20190923">
+          <img src="photos/photo_0126_objawienie-maz-ojciec-solidarnosciowiec-.jpg" alt="Objawienie. Mąż-ojciec-solidarnosciowiec-katecheta-samorządo" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Objawienie. Mąż-ojciec-solidarnosciowiec-katecheta-samorządowiec-wspólnotowiec (</div>
+            <div class="gallery-item-date">23 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0127_antykatolickie-bezmyslenie-o-prawie-i-sp.jpg"
+             data-title="Antykatolickie (bez)myślenie o prawie i sprawiedliwości (PiS)"
+             data-date="22 września 2019"
+             data-slug="antykatolickie-bezmyslenie-o-prawie-i-sprawiedliwosci-pis-20190922">
+          <img src="photos/photo_0127_antykatolickie-bezmyslenie-o-prawie-i-sp.jpg" alt="Antykatolickie (bez)myślenie o prawie i sprawiedliwości (PiS" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Antykatolickie (bez)myślenie o prawie i sprawiedliwości (PiS)</div>
+            <div class="gallery-item-date">22 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0128_rozmowa-wierzacych-polakow-dei-verbum-20.jpg"
+             data-title="Rozmowa wierzących Polaków (Dei Verbum)"
+             data-date="21 września 2019"
+             data-slug="rozmowa-wierzacych-polakow-dei-verbum-20190921">
+          <img src="photos/photo_0128_rozmowa-wierzacych-polakow-dei-verbum-20.jpg" alt="Rozmowa wierzących Polaków (Dei Verbum)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Rozmowa wierzących Polaków (Dei Verbum)</div>
+            <div class="gallery-item-date">21 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0129_gdzie-jestes-inteligencjo-katolicka-apel.jpg"
+             data-title=" Gdzie jesteś inteligencjo katolicka (apel przeciw PiS-katolicyzmowi)"
+             data-date="20 września 2019"
+             data-slug="gdzie-jestes-inteligencjo-katolicka-apel-przeciw-pis-katolicyzmowi-20190920">
+          <img src="photos/photo_0129_gdzie-jestes-inteligencjo-katolicka-apel.jpg" alt=" Gdzie jesteś inteligencjo katolicka (apel przeciw PiS-katol" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title"> Gdzie jesteś inteligencjo katolicka (apel przeciw PiS-katolicyzmowi)</div>
+            <div class="gallery-item-date">20 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0130_boze-dziekuje-ci-za-adama-strzembosza-pr.jpg"
+             data-title="Boże dziękuję Ci za Adama Strzembosza, Profesora-Polaka-Człowieka"
+             data-date="19 września 2019"
+             data-slug="boze-dziekuje-ci-za-adama-strzembosza-profesora-polaka-czlowieka-20190919">
+          <img src="photos/photo_0130_boze-dziekuje-ci-za-adama-strzembosza-pr.jpg" alt="Boże dziękuję Ci za Adama Strzembosza, Profesora-Polaka-Czło" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Boże dziękuję Ci za Adama Strzembosza, Profesora-Polaka-Człowieka</div>
+            <div class="gallery-item-date">19 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0131_pis-jest-mozliwy-tylko-w-antysoborowej-p.jpg"
+             data-title="PiS jest możliwy tylko w antysoborowej Polsce (cynizm antykatolicki)"
+             data-date="17 września 2019"
+             data-slug="pis-jest-mozliwy-tylko-w-antysoborowej-polsce-cynizm-antykatolicki-20190917">
+          <img src="photos/photo_0131_pis-jest-mozliwy-tylko-w-antysoborowej-p.jpg" alt="PiS jest możliwy tylko w antysoborowej Polsce (cynizm antyka" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PiS jest możliwy tylko w antysoborowej Polsce (cynizm antykatolicki)</div>
+            <div class="gallery-item-date">17 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0132_polsko-katolicki-dramat-antywspolczesnos.jpg"
+             data-title="Polsko-katolicki dramat antywspółczesności"
+             data-date="16 września 2019"
+             data-slug="polsko-katolicki-dramat-antywspolczesnosci-20190916">
+          <img src="photos/photo_0132_polsko-katolicki-dramat-antywspolczesnos.jpg" alt="Polsko-katolicki dramat antywspółczesności" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polsko-katolicki dramat antywspółczesności</div>
+            <div class="gallery-item-date">16 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0133_posluga-myslenia-anty-kaczynski-20190914.jpg"
+             data-title="Posługa myślenia. Anty-Kaczyński"
+             data-date="14 września 2019"
+             data-slug="posluga-myslenia-anty-kaczynski-20190914">
+          <img src="photos/photo_0133_posluga-myslenia-anty-kaczynski-20190914.jpg" alt="Posługa myślenia. Anty-Kaczyński" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Posługa myślenia. Anty-Kaczyński</div>
+            <div class="gallery-item-date">14 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0134_post-wymuszony-pis-polska-kaczynskiego-2.jpg"
+             data-title="Post wymuszony PiS-Polską Kaczyńskiego"
+             data-date="13 września 2019"
+             data-slug="post-wymuszony-pis-polska-kaczynskiego-20190913">
+          <img src="photos/photo_0134_post-wymuszony-pis-polska-kaczynskiego-2.jpg" alt="Post wymuszony PiS-Polską Kaczyńskiego" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Post wymuszony PiS-Polską Kaczyńskiego</div>
+            <div class="gallery-item-date">13 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0135_pis-leninizm-20190910.jpg"
+             data-title="PiS-leninizm"
+             data-date="10 września 2019"
+             data-slug="pis-leninizm-20190910">
+          <img src="photos/photo_0135_pis-leninizm-20190910.jpg" alt="PiS-leninizm" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PiS-leninizm</div>
+            <div class="gallery-item-date">10 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0136_annopolskie-swietowanie-8-wrzesnia-od-19.jpg"
+             data-title="Annopolskie świętowanie 8 września (od 1910)"
+             data-date="8 września 2019"
+             data-slug="annopolskie-swietowanie-8-wrzesnia-od-1910-20190908">
+          <img src="photos/photo_0136_annopolskie-swietowanie-8-wrzesnia-od-19.jpg" alt="Annopolskie świętowanie 8 września (od 1910)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Annopolskie świętowanie 8 września (od 1910)</div>
+            <div class="gallery-item-date">8 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0137_sens-rosnie-z-nami-obok-w-nas-20190906.jpg"
+             data-title="Sens rośnie z nami (obok, w nas)"
+             data-date="6 września 2019"
+             data-slug="sens-rosnie-z-nami-obok-w-nas-20190906">
+          <img src="photos/photo_0137_sens-rosnie-z-nami-obok-w-nas-20190906.jpg" alt="Sens rośnie z nami (obok, w nas)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Sens rośnie z nami (obok, w nas)</div>
+            <div class="gallery-item-date">6 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0138_1ix-zjednoczona-europa-znakiem-nadziei-d.jpg"
+             data-title="1.IX - Zjednoczona Europa znakiem nadziei dla świata i Kościoła. Boso!"
+             data-date="1 września 2019"
+             data-slug="1ix-zjednoczona-europa-znakiem-nadziei-dla-swiata-i-kosciola-boso-20190901">
+          <img src="photos/photo_0138_1ix-zjednoczona-europa-znakiem-nadziei-d.jpg" alt="1.IX - Zjednoczona Europa znakiem nadziei dla świata i Kości" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">1.IX - Zjednoczona Europa znakiem nadziei dla świata i Kościoła. Boso!</div>
+            <div class="gallery-item-date">1 września 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0139_o-milosci-i-hejcie-w-polsce-pis-i-nie-ty.jpg"
+             data-title="O miłości i hejcie w Polsce PiS (i nie tylko) (2)"
+             data-date="31 sierpnia 2019"
+             data-slug="o-milosci-i-hejcie-w-polsce-pis-i-nie-tylko-2-20190831">
+          <img src="photos/photo_0139_o-milosci-i-hejcie-w-polsce-pis-i-nie-ty.jpg" alt="O miłości i hejcie w Polsce PiS (i nie tylko) (2)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O miłości i hejcie w Polsce PiS (i nie tylko) (2)</div>
+            <div class="gallery-item-date">31 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0140_o-milosci-i-hejcie-w-polsce-pis-i-nie-ty.jpg"
+             data-title="O miłości i hejcie w Polsce PiS (i nie tylko) (1)"
+             data-date="28 sierpnia 2019"
+             data-slug="o-milosci-i-hejcie-w-polsce-pis-i-nie-tylko-1-20190828">
+          <img src="photos/photo_0140_o-milosci-i-hejcie-w-polsce-pis-i-nie-ty.jpg" alt="O miłości i hejcie w Polsce PiS (i nie tylko) (1)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O miłości i hejcie w Polsce PiS (i nie tylko) (1)</div>
+            <div class="gallery-item-date">28 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0141_pis-gwalci-rozum-i-kulture-czlowieka-na-.jpg"
+             data-title="PiS gwałci rozum i kulturę człowieka na ziemi („Jaka myśl, taki czyn")"
+             data-date="26 sierpnia 2019"
+             data-slug="pis-gwalci-rozum-i-kulture-czlowieka-na-ziemi-jaka-mysl-taki-czyn-20190826">
+          <img src="photos/photo_0141_pis-gwalci-rozum-i-kulture-czlowieka-na-.jpg" alt="PiS gwałci rozum i kulturę człowieka na ziemi („Jaka myśl, t" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">PiS gwałci rozum i kulturę człowieka na ziemi („Jaka myśl, taki czyn")</div>
+            <div class="gallery-item-date">26 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0142_malgorzata-irena-sikorska-polska-jest-na.jpg"
+             data-title="Małgorzata Irena Sikorska: Polska jest nasza, nie prezesa."
+             data-date="25 sierpnia 2019"
+             data-slug="malgorzata-irena-sikorska-polska-jest-nasza-nie-prezesa-20190825">
+          <img src="photos/photo_0142_malgorzata-irena-sikorska-polska-jest-na.jpg" alt="Małgorzata Irena Sikorska: Polska jest nasza, nie prezesa." loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Małgorzata Irena Sikorska: Polska jest nasza, nie prezesa.</div>
+            <div class="gallery-item-date">25 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0143_ministerstwo-hejtu-czyli-pisss-gwalt-na-.jpg"
+             data-title="Ministerstwo hejtu, czyli pisss gwałt na rozumie i kulturze"
+             data-date="21 sierpnia 2019"
+             data-slug="ministerstwo-hejtu-czyli-pisss-gwalt-na-rozumie-i-kulturze-20190821">
+          <img src="photos/photo_0143_ministerstwo-hejtu-czyli-pisss-gwalt-na-.jpg" alt="Ministerstwo hejtu, czyli pisss gwałt na rozumie i kulturze" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Ministerstwo hejtu, czyli pisss gwałt na rozumie i kulturze</div>
+            <div class="gallery-item-date">21 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0144_dramat-kosciola-dramat-swiata-20190820.jpg"
+             data-title="Dramat Kościoła, dramat świata"
+             data-date="20 sierpnia 2019"
+             data-slug="dramat-kosciola-dramat-swiata-20190820">
+          <img src="photos/photo_0144_dramat-kosciola-dramat-swiata-20190820.jpg" alt="Dramat Kościoła, dramat świata" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dramat Kościoła, dramat świata</div>
+            <div class="gallery-item-date">20 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0145_przeklamania-w-kosciele-katolickimpl-ode.jpg"
+             data-title="Przekłamania w Kościele Katolickim.pl – odezwa (apel) do moich biskupów"
+             data-date="19 sierpnia 2019"
+             data-slug="przeklamania-w-kosciele-katolickimpl-odezwa-apel-do-moich-biskupow-20190819">
+          <img src="photos/photo_0145_przeklamania-w-kosciele-katolickimpl-ode.jpg" alt="Przekłamania w Kościele Katolickim.pl – odezwa (apel) do moi" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Przekłamania w Kościele Katolickim.pl – odezwa (apel) do moich biskupów</div>
+            <div class="gallery-item-date">19 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0146_15-sierpnia-kwiaty-dla-plutonowego-czerw.jpg"
+             data-title="15 Sierpnia-  kwiaty dla plutonowego Czerwińskiego i Polski"
+             data-date="15 sierpnia 2019"
+             data-slug="15-sierpnia-kwiaty-dla-plutonowego-czerwinskiego-i-polski-20190815">
+          <img src="photos/photo_0146_15-sierpnia-kwiaty-dla-plutonowego-czerw.jpg" alt="15 Sierpnia-  kwiaty dla plutonowego Czerwińskiego i Polski" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">15 Sierpnia-  kwiaty dla plutonowego Czerwińskiego i Polski</div>
+            <div class="gallery-item-date">15 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0147_list-otwarty-wyborcy-do-grzegorza-schety.jpg"
+             data-title="List otwarty wyborcy do Grzegorza Schetyny"
+             data-date="13 sierpnia 2019"
+             data-slug="list-otwarty-wyborcy-do-grzegorza-schetyny-20190813">
+          <img src="photos/photo_0147_list-otwarty-wyborcy-do-grzegorza-schety.jpg" alt="List otwarty wyborcy do Grzegorza Schetyny" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">List otwarty wyborcy do Grzegorza Schetyny</div>
+            <div class="gallery-item-date">13 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0148_w-opozycji-do-rzadzacych-i-opozycji-a-po.jpg"
+             data-title="W opozycji do rządzących i… opozycji! A po Płocku przeszedł marsz!"
+             data-date="10 sierpnia 2019"
+             data-slug="w-opozycji-do-rzadzacych-i-opozycji-a-po-plocku-przeszedl-marsz-20190810">
+          <img src="photos/photo_0148_w-opozycji-do-rzadzacych-i-opozycji-a-po.jpg" alt="W opozycji do rządzących i… opozycji! A po Płocku przeszedł " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">W opozycji do rządzących i… opozycji! A po Płocku przeszedł marsz!</div>
+            <div class="gallery-item-date">10 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0149_krolewska-droga-i-fascynujaca-przygoda-2.jpg"
+             data-title="Królewska droga (i fascynująca przygoda)"
+             data-date="3 sierpnia 2019"
+             data-slug="krolewska-droga-i-fascynujaca-przygoda-20190803">
+          <img src="photos/photo_0149_krolewska-droga-i-fascynujaca-przygoda-2.jpg" alt="Królewska droga (i fascynująca przygoda)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Królewska droga (i fascynująca przygoda)</div>
+            <div class="gallery-item-date">3 sierpnia 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0150_prawda-ktora-przymusza-o-polsce-i-koscie.jpg"
+             data-title="Prawda, która przymusza (o Polsce i Kościele)"
+             data-date="27 lipca 2019"
+             data-slug="prawda-ktora-przymusza-o-polsce-i-kosciele-20190727">
+          <img src="photos/photo_0150_prawda-ktora-przymusza-o-polsce-i-koscie.jpg" alt="Prawda, która przymusza (o Polsce i Kościele)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Prawda, która przymusza (o Polsce i Kościele)</div>
+            <div class="gallery-item-date">27 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0151_tecza-zachwytu-gra-w-palanta-i-tradycja-.jpg"
+             data-title="Tęcza zachwytu, gra w palanta i tradycja wolnościowa (2)"
+             data-date="25 lipca 2019"
+             data-slug="tecza-zachwytu-gra-w-palanta-i-tradycja-wolnosciowa-2-20190725">
+          <img src="photos/photo_0151_tecza-zachwytu-gra-w-palanta-i-tradycja-.jpg" alt="Tęcza zachwytu, gra w palanta i tradycja wolnościowa (2)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Tęcza zachwytu, gra w palanta i tradycja wolnościowa (2)</div>
+            <div class="gallery-item-date">25 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0152_szczuczyn-zydzi-lgbt-i-moja-sprawa-polsk.jpg"
+             data-title="Szczuczyn, Żydzi, LGBT i moja sprawa polska"
+             data-date="23 lipca 2019"
+             data-slug="szczuczyn-zydzi-lgbt-i-moja-sprawa-polska-20190723">
+          <img src="photos/photo_0152_szczuczyn-zydzi-lgbt-i-moja-sprawa-polsk.jpg" alt="Szczuczyn, Żydzi, LGBT i moja sprawa polska" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Szczuczyn, Żydzi, LGBT i moja sprawa polska</div>
+            <div class="gallery-item-date">23 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0153_gra-w-palanta-i-tradycja-wolnosciowa-1-2.jpg"
+             data-title="Gra w palanta i tradycja wolnościowa (1)"
+             data-date="17 lipca 2019"
+             data-slug="gra-w-palanta-i-tradycja-wolnosciowa-1-20190717">
+          <img src="photos/photo_0153_gra-w-palanta-i-tradycja-wolnosciowa-1-2.jpg" alt="Gra w palanta i tradycja wolnościowa (1)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Gra w palanta i tradycja wolnościowa (1)</div>
+            <div class="gallery-item-date">17 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0154_wegrow-wczoraj-dzisiaj-i-zawsze-pis-doda.jpg"
+             data-title="Węgrów wczoraj, dzisiaj i zawsze... PiS dodał nam skrzydeł! (Po)rozmawiajmy! ; -"
+             data-date="7 lipca 2019"
+             data-slug="wegrow-wczoraj-dzisiaj-i-zawsze-pis-dodal-nam-skrzydel-porozmawiajmy-20190707">
+          <img src="photos/photo_0154_wegrow-wczoraj-dzisiaj-i-zawsze-pis-doda.jpg" alt="Węgrów wczoraj, dzisiaj i zawsze... PiS dodał nam skrzydeł! " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Węgrów wczoraj, dzisiaj i zawsze... PiS dodał nam skrzydeł! (Po)rozmawiajmy! ; -</div>
+            <div class="gallery-item-date">7 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0155_wegrowskie-termopile-bylem-tam-20190706.jpg"
+             data-title="Węgrowskie Termopile. Byłem tam!"
+             data-date="6 lipca 2019"
+             data-slug="wegrowskie-termopile-bylem-tam-20190706">
+          <img src="photos/photo_0155_wegrowskie-termopile-bylem-tam-20190706.jpg" alt="Węgrowskie Termopile. Byłem tam!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Węgrowskie Termopile. Byłem tam!</div>
+            <div class="gallery-item-date">6 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0156_intruzka-rocznicowe-pisanie-dnia-3-lipca.jpg"
+             data-title="Intruz(ka) - rocznicowe pisanie dnia 3 lipca"
+             data-date="3 lipca 2019"
+             data-slug="intruzka-rocznicowe-pisanie-dnia-3-lipca-20190703">
+          <img src="photos/photo_0156_intruzka-rocznicowe-pisanie-dnia-3-lipca.jpg" alt="Intruz(ka) - rocznicowe pisanie dnia 3 lipca" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Intruz(ka) - rocznicowe pisanie dnia 3 lipca</div>
+            <div class="gallery-item-date">3 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0157_strachowka-rejs-po-zyciu-prawdzie-i-hist.jpg"
+             data-title="STRACHÓWKA -  rejs po życiu, prawdzie i historii"
+             data-date="2 lipca 2019"
+             data-slug="strachowka-rejs-po-zyciu-prawdzie-i-historii-20190702">
+          <img src="photos/photo_0157_strachowka-rejs-po-zyciu-prawdzie-i-hist.jpg" alt="STRACHÓWKA -  rejs po życiu, prawdzie i historii" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">STRACHÓWKA -  rejs po życiu, prawdzie i historii</div>
+            <div class="gallery-item-date">2 lipca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0158_hejtowanie-mieszkancow-i-malo-samorzadna.jpg"
+             data-title="Hejtowanie mieszkańców  i mało samorządna Ojczyzna (Kościół included)! Życie z ("
+             data-date="28 czerwca 2019"
+             data-slug="hejtowanie-mieszkancow-i-malo-samorzadna-ojczyzna-kosciol-included-zycie-z-zaboj-20190628">
+          <img src="photos/photo_0158_hejtowanie-mieszkancow-i-malo-samorzadna.jpg" alt="Hejtowanie mieszkańców  i mało samorządna Ojczyzna (Kościół " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Hejtowanie mieszkańców  i mało samorządna Ojczyzna (Kościół included)! Życie z (</div>
+            <div class="gallery-item-date">28 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0159_polska-2019-i-wspolodpowiedzialnosc-kosc.jpg"
+             data-title="Polska 2019 i współodpowiedzialność Kościoła (Suplikacje polskie)"
+             data-date="26 czerwca 2019"
+             data-slug="polska-2019-i-wspolodpowiedzialnosc-kosciola-suplikacje-polskie-20190626">
+          <img src="photos/photo_0159_polska-2019-i-wspolodpowiedzialnosc-kosc.jpg" alt="Polska 2019 i współodpowiedzialność Kościoła (Suplikacje pol" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska 2019 i współodpowiedzialność Kościoła (Suplikacje polskie)</div>
+            <div class="gallery-item-date">26 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0160_swiat-dobry-dobra-i-bezrozumny-kociokwik.jpg"
+             data-title="Świat dobry (dobra) i bezrozumny kociokwik "
+             data-date="24 czerwca 2019"
+             data-slug="swiat-dobry-dobra-i-bezrozumny-kociokwik-20190624">
+          <img src="photos/photo_0160_swiat-dobry-dobra-i-bezrozumny-kociokwik.jpg" alt="Świat dobry (dobra) i bezrozumny kociokwik " loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Świat dobry (dobra) i bezrozumny kociokwik </div>
+            <div class="gallery-item-date">24 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0161_zlo-w-kosciele-falsz-przemilczanie-niesz.jpg"
+             data-title=" Zło w Kościele! Fałsz? Przemilczanie! Nieszczerość!"
+             data-date="22 czerwca 2019"
+             data-slug="zlo-w-kosciele-falsz-przemilczanie-nieszczerosc-20190622">
+          <img src="photos/photo_0161_zlo-w-kosciele-falsz-przemilczanie-niesz.jpg" alt=" Zło w Kościele! Fałsz? Przemilczanie! Nieszczerość!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title"> Zło w Kościele! Fałsz? Przemilczanie! Nieszczerość!</div>
+            <div class="gallery-item-date">22 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0162_seksualizacja-dzieci-i-nie-tylko-wiara-i.jpg"
+             data-title="Seksualizacja dzieci i nie tylko (wiara i rozum)"
+             data-date="21 czerwca 2019"
+             data-slug="seksualizacja-dzieci-i-nie-tylko-wiara-i-rozum-20190621">
+          <img src="photos/photo_0162_seksualizacja-dzieci-i-nie-tylko-wiara-i.jpg" alt="Seksualizacja dzieci i nie tylko (wiara i rozum)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Seksualizacja dzieci i nie tylko (wiara i rozum)</div>
+            <div class="gallery-item-date">21 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0163_przyszlosc-strachowki-polski-i-kosciolap.jpg"
+             data-title="Przyszłość Strachówki (Polski i Kościoła.PL). Pendant?!"
+             data-date="18 czerwca 2019"
+             data-slug="przyszlosc-strachowki-polski-i-kosciolapl-pendant-20190618">
+          <img src="photos/photo_0163_przyszlosc-strachowki-polski-i-kosciolap.jpg" alt="Przyszłość Strachówki (Polski i Kościoła.PL). Pendant?!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Przyszłość Strachówki (Polski i Kościoła.PL). Pendant?!</div>
+            <div class="gallery-item-date">18 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0164_pytania-przed-jutrzejszym-festynem-w-str.jpg"
+             data-title="Pytania przed jutrzejszym festynem w Strachówce"
+             data-date="14 czerwca 2019"
+             data-slug="pytania-przed-jutrzejszym-festynem-w-strachowce-20190614">
+          <img src="photos/photo_0164_pytania-przed-jutrzejszym-festynem-w-str.jpg" alt="Pytania przed jutrzejszym festynem w Strachówce" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Pytania przed jutrzejszym festynem w Strachówce</div>
+            <div class="gallery-item-date">14 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0165_pointelektualizujmy-troche-wreszcie-2019.jpg"
+             data-title="Pointelektualizujmy trochę. Wreszcie!"
+             data-date="7 czerwca 2019"
+             data-slug="pointelektualizujmy-troche-wreszcie-20190607">
+          <img src="photos/photo_0165_pointelektualizujmy-troche-wreszcie-2019.jpg" alt="Pointelektualizujmy trochę. Wreszcie!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Pointelektualizujmy trochę. Wreszcie!</div>
+            <div class="gallery-item-date">7 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0166_istotowo-i-konstytutywnie-dowod-z-kontem.jpg"
+             data-title="Istotowo i konstytutywnie (dowód z kontemplacji)"
+             data-date="6 czerwca 2019"
+             data-slug="istotowo-i-konstytutywnie-dowod-z-kontemplacji-20190606">
+          <img src="photos/photo_0166_istotowo-i-konstytutywnie-dowod-z-kontem.jpg" alt="Istotowo i konstytutywnie (dowód z kontemplacji)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Istotowo i konstytutywnie (dowód z kontemplacji)</div>
+            <div class="gallery-item-date">6 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0167_przezytki-i-niedobitki-starego-kosciola-.jpg"
+             data-title="Przeżytki (i niedobitki) starego Kościoła"
+             data-date="5 czerwca 2019"
+             data-slug="przezytki-i-niedobitki-starego-kosciola-20190605">
+          <img src="photos/photo_0167_przezytki-i-niedobitki-starego-kosciola-.jpg" alt="Przeżytki (i niedobitki) starego Kościoła" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Przeżytki (i niedobitki) starego Kościoła</div>
+            <div class="gallery-item-date">5 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0168_zdradzeni-przez-kosciol-historia-zaklama.jpg"
+             data-title="Zdradzeni przez kościół (historia zakłamania). Głos katechetyczny"
+             data-date="4 czerwca 2019"
+             data-slug="zdradzeni-przez-kosciol-historia-zaklamania-glos-katechetyczny-20190604">
+          <img src="photos/photo_0168_zdradzeni-przez-kosciol-historia-zaklama.jpg" alt="Zdradzeni przez kościół (historia zakłamania). Głos katechet" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Zdradzeni przez kościół (historia zakłamania). Głos katechetyczny</div>
+            <div class="gallery-item-date">4 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0169_dlaczego-xxx-lecie-polskiej-wolnosci-rok.jpg"
+             data-title="Dlaczego? XXX-lecie Polskiej Wolności, ROK 1989 i Polska 2019!"
+             data-date="1 czerwca 2019"
+             data-slug="dlaczego-xxx-lecie-polskiej-wolnosci-rok-1989-i-polska-2019-20190601">
+          <img src="photos/photo_0169_dlaczego-xxx-lecie-polskiej-wolnosci-rok.jpg" alt="Dlaczego? XXX-lecie Polskiej Wolności, ROK 1989 i Polska 201" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Dlaczego? XXX-lecie Polskiej Wolności, ROK 1989 i Polska 2019!</div>
+            <div class="gallery-item-date">1 czerwca 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0170_czekajac-na-orzeczenie-tsue-juz-po-wybor.jpg"
+             data-title="Czekając na orzeczenie TSUE (już po wyborach do PE)"
+             data-date="31 maja 2019"
+             data-slug="czekajac-na-orzeczenie-tsue-juz-po-wyborach-do-pe-20190531">
+          <img src="photos/photo_0170_czekajac-na-orzeczenie-tsue-juz-po-wybor.jpg" alt="Czekając na orzeczenie TSUE (już po wyborach do PE)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Czekając na orzeczenie TSUE (już po wyborach do PE)</div>
+            <div class="gallery-item-date">31 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0171_w-przed-wyborczej-ciszy-20190525.jpg"
+             data-title="W przed-wyborczej ciszy"
+             data-date="25 maja 2019"
+             data-slug="w-przed-wyborczej-ciszy-20190525">
+          <img src="photos/photo_0171_w-przed-wyborczej-ciszy-20190525.jpg" alt="W przed-wyborczej ciszy" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">W przed-wyborczej ciszy</div>
+            <div class="gallery-item-date">25 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0172_znikczemnione-katedry-po-prl-20190524.jpg"
+             data-title="Znikczemnione katedry (po PRL)"
+             data-date="24 maja 2019"
+             data-slug="znikczemnione-katedry-po-prl-20190524">
+          <img src="photos/photo_0172_znikczemnione-katedry-po-prl-20190524.jpg" alt="Znikczemnione katedry (po PRL)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Znikczemnione katedry (po PRL)</div>
+            <div class="gallery-item-date">24 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0173_polska-cala-chora-koscielnoscia-systemem.jpg"
+             data-title="Polska cała chora "kościelnością" (systemem)"
+             data-date="22 maja 2019"
+             data-slug="polska-cala-chora-koscielnoscia-systemem-20190522">
+          <img src="photos/photo_0173_polska-cala-chora-koscielnoscia-systemem.jpg" alt="Polska cała chora "kościelnością" (systemem)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Polska cała chora "kościelnością" (systemem)</div>
+            <div class="gallery-item-date">22 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0174_destrukcja-falszem-zaklamaniem-20190521.jpg"
+             data-title="Destrukcja fałszem (zakłamaniem)"
+             data-date="21 maja 2019"
+             data-slug="destrukcja-falszem-zaklamaniem-20190521">
+          <img src="photos/photo_0174_destrukcja-falszem-zaklamaniem-20190521.jpg" alt="Destrukcja fałszem (zakłamaniem)" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Destrukcja fałszem (zakłamaniem)</div>
+            <div class="gallery-item-date">21 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0175_falsz-mojego-kosciola-20190520.jpg"
+             data-title="Fałsz mojego kościoła"
+             data-date="20 maja 2019"
+             data-slug="falsz-mojego-kosciola-20190520">
+          <img src="photos/photo_0175_falsz-mojego-kosciola-20190520.jpg" alt="Fałsz mojego kościoła" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Fałsz mojego kościoła</div>
+            <div class="gallery-item-date">20 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0176_anty-kosciolpl-20190518.jpg"
+             data-title="Anty-kościół.pl"
+             data-date="18 maja 2019"
+             data-slug="anty-kosciolpl-20190518">
+          <img src="photos/photo_0176_anty-kosciolpl-20190518.jpg" alt="Anty-kościół.pl" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Anty-kościół.pl</div>
+            <div class="gallery-item-date">18 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0177_laska-dialogu-slowa-antidotum-na-pedofil.jpg"
+             data-title="Łaska dialogu (Słowa) - antidotum na pedofilię i wszelki inny grzech"
+             data-date="17 maja 2019"
+             data-slug="laska-dialogu-slowa-antidotum-na-pedofilie-i-wszelki-inny-grzech-20190517">
+          <img src="photos/photo_0177_laska-dialogu-slowa-antidotum-na-pedofil.jpg" alt="Łaska dialogu (Słowa) - antidotum na pedofilię i wszelki inn" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Łaska dialogu (Słowa) - antidotum na pedofilię i wszelki inny grzech</div>
+            <div class="gallery-item-date">17 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0178_ksieza-profesorowie-teologowie-duszpaste.jpg"
+             data-title="Księża profesorowie, teologowie, duszpasterze i pedofile"
+             data-date="15 maja 2019"
+             data-slug="ksieza-profesorowie-teologowie-duszpasterze-i-pedofile-20190515">
+          <img src="photos/photo_0178_ksieza-profesorowie-teologowie-duszpaste.jpg" alt="Księża profesorowie, teologowie, duszpasterze i pedofile" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">Księża profesorowie, teologowie, duszpasterze i pedofile</div>
+            <div class="gallery-item-date">15 maja 2019</div>
+          </div>
+        </div>
+        <div class="gallery-item"
+             data-src="photos/photo_0179_o-co-chodzi-w-mojejnaszej-strachowce-ad-.jpg"
+             data-title="O co chodzi w mojej/naszej Strachówce AD 2019!"
+             data-date="14 maja 2019"
+             data-slug="o-co-chodzi-w-mojejnaszej-strachowce-ad-2019-20190514">
+          <img src="photos/photo_0179_o-co-chodzi-w-mojejnaszej-strachowce-ad-.jpg" alt="O co chodzi w mojej/naszej Strachówce AD 2019!" loading="lazy">
+          <div class="gallery-item-overlay">
+            <div class="gallery-item-title">O co chodzi w mojej/naszej Strachówce AD 2019!</div>
+            <div class="gallery-item-date">14 maja 2019</div>
+          </div>
+        </div></div>
+
+<div id="lightbox">
+  <button id="lb-close">&times;</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-info">
+    <span id="lb-title"></span>
+    <span id="lb-date"></span>
+    <a id="lb-link" href="#">Czytaj tekst &rarr;</a>
+  </div>
+</div>
+
+  
+  
+</div>
+
+
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand">Osobny Swiat</span>
+      <span class="footer-tagline">Widziane ze Strachowki</span>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">Strona glowna</a>
+      <a href="../archiwum/index.html">Archiwum</a>
+      <a href="../search/index.html">Szukaj</a>
+      <a href="https://strachowka.blogspot.com" target="_blank">Oryginalny blog</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Jozef Kapaon<br>osobnyswiat.pl</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.yr-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var items = this.nextElementSibling;
+    var ch = this.querySelector('.yr-ch');
+    items.classList.toggle('open');
+    if (ch) ch.classList.toggle('open');
+  });
+});
+var yr = new Date().getFullYear().toString();
+document.querySelectorAll('.yr-row').forEach(function(row) {
+  if (row.dataset.year === yr) row.click();
+});
+</script>
+<script>
+(function() {
+  var items = document.querySelectorAll('.gallery-item');
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lb-img');
+  var lbTitle = document.getElementById('lb-title');
+  var lbDate = document.getElementById('lb-date');
+  var lbLink = document.getElementById('lb-link');
+  var lbClose = document.getElementById('lb-close');
+  var current = 0;
+
+  function open(idx) {
+    current = idx;
+    var item = items[idx];
+    lbImg.src = item.dataset.src;
+    lbTitle.textContent = item.dataset.title;
+    lbDate.textContent = item.dataset.date;
+    lbLink.href = '../posts/' + item.dataset.slug + '.html';
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  items.forEach(function(item, idx) {
+    item.addEventListener('click', function() { open(idx); });
+  });
+
+  lbClose.addEventListener('click', close);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (lightbox.style.display === 'none') return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight' && current < items.length - 1) open(current + 1);
+    if (e.key === 'ArrowLeft' && current > 0) open(current - 1);
+  });
+})();
+</script></body>
+</html>
