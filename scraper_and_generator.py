@@ -425,7 +425,7 @@ def html_page(title, content, *, css_path="", nav_active="",
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — Osobny Swiat</title>
+  <title>{title} — Osobny &#346;wiat</title>
   <link rel="stylesheet" href="{css_path}style.css">
 </head>
 <body>
@@ -440,10 +440,10 @@ def html_page(title, content, *, css_path="", nav_active="",
   <div class="masthead-inner">
     <div class="masthead-top">
       <span class="masthead-label">Rok Norwidowski Zawsze</span>
-      <div class="masthead-issue">Widziane ze Strachowki<br>od 2016 roku</div>
+      <div class="masthead-issue">Widziane ze Strachówki<br>od 2016 roku</div>
     </div>
-    <a href="{css_path}index.html" class="masthead-name">Osobny Swiat</a>
-    <p class="masthead-tagline">Filozofia, wiara, wiersze i mysli — pisane codziennie od lat</p>
+    <a href="{css_path}index.html" class="masthead-name">Osobny &#346;wiat</a>
+    <p class="masthead-tagline">Filozofia, wiara, wiersze i my&#347;li &mdash; pisane codziennie od lat</p>
     <nav class="sitenav">
       <a href="{css_path}index.html" {"class='active'" if nav_active=='home' else ''}>Teksty</a>
       <a href="{css_path}archiwum/index.html" {"class='active'" if nav_active=='archiwum' else ''}>Archiwum</a>
@@ -469,16 +469,16 @@ def html_page(title, content, *, css_path="", nav_active="",
 <footer>
   <div class="footer-inner">
     <div>
-      <span class="footer-brand">Osobny Swiat</span>
-      <span class="footer-tagline">Widziane ze Strachowki</span>
+      <span class="footer-brand">Osobny &#346;wiat</span>
+      <span class="footer-tagline">Widziane ze Strachówki</span>
     </div>
     <div class="footer-links">
-      <a href="{css_path}index.html">Strona glowna</a>
+      <a href="{css_path}index.html">Strona g&#322;ówna</a>
       <a href="{css_path}archiwum/index.html">Archiwum</a>
       <a href="{css_path}search/index.html">Szukaj</a>
       <a href="https://strachowka.blogspot.com" target="_blank">Oryginalny blog</a>
     </div>
-    <span class="footer-copy">&copy; {today.year} Jozef Kapaon<br>osobnyswiat.pl</span>
+    <span class="footer-copy">&copy; {today.year} J&oacute;zef Kapaon<br>osobnyswiat.pl</span>
   </div>
 </footer>
 
@@ -618,63 +618,82 @@ def format_post_content(html_content):
 
 # Expanded Polish stopwords for word cloud
 STOPWORDS = {
-    # Basic conjunctions/prepositions
     "i","w","z","na","do","nie","to","sie","jest","ze","ale","jak","co","po",
     "by","tak","go","jej","jego","ich","im","nas","nam","czy","ten","ta","te",
     "tego","tej","tych","tym","temu","przez","przy","dla","od","o","a","bo",
-    "no","juz","tu","tam","sobie","tylko","jestem","bylo","byly","mnie","mam",
-    "mi","my","ja","ty","on","ona","ono","oni","one","pan","pani","choc",
-    "kiedy","gdy","jesli","jezeli","aby","zeby","iz","moze","mozna",
-    "wszystko","wszystkich","wszystkim","wszystkie","bardzo","bardziej",
-    "najbardziej","jaki","jaka","jakie","jacy","tego","taka","takie",
-    "takiej","takim","taki","tyle","tez","juz","sobie","czego","czemu",
-    "czym","moj","moja","moje","moich","swoj","swoja","swoje","swoich",
-    "swoim","swoja","swoja","chcę","chce","chcial","moze","mozemy",
-    "mozecie","moga","jeszcze","tez","rowniez","jednak","lecz","wiec",
-    "dlatego","ktory","ktora","ktore","ktorzy","ktorych","ktorym",
-    # Verb forms
-    "jest","bylo","bedzie","byla","byli","bylo","beda","byc","miec","mam",
-    "masz","maja","mamy","macie","mial","miala","mieli","mialy","moze",
-    "mozna","mozemy","chce","chcemy","chcial","chciala","chcieli","widziec",
-    "widze","widzisz","widzi","widzimy","wiecie","wiedza","wiedziec","wiem",
-    "wiesz","wiemy","wiecie","wiedza","znac","znam","znasz","zna","znamy",
-    "znacie","znaja","mowic","mowie","mowisz","mowi","mowimy","mowicie",
-    "mowia","powiedziec","powiem","powie","powiemy","powiedzial","myslec",
-    "mysle","myslisz","mysli","myslimy","myslicie","mysla","myslal","myslala",
-    "czuc","czuje","czujesz","czuje","czujemy","czujecie","czuja","czul",
-    "isc","idzie","idzie","idemy","idziecie","ida","szedl","szla","znalezc",
-    "znajde","znajdziesz","znajdzie","znalazl","znalazla","pisac","pisze",
-    "piszesz","pisze","piszemy","piszecie","pisza","pisal","pisala","napisal",
-    "byc","jestem","jestes","jest","jestesmy","jestescie","sa",
-    # Common adjectives/adverbs
-    "dobry","dobra","dobre","dobrego","dobrze","zly","zla","zle","zlego",
-    "wielki","wielka","wielkie","wielkiego","duzy","duza","duze","duzego",
-    "maly","mala","male","malego","nowy","nowa","nowe","nowego","stary",
-    "stara","stare","starego","pierwszy","pierwsza","pierwsze","ostatni",
-    "wlasnie","juz","jeszcze","tez","rowniez","bardzo","bardziej","zawsze",
-    "nigdy","czasem","czasami","zawsze","wszedzie","nigdzie","gdzies",
-    "kiedys","nigdy","teraz","wtedy","potem","potem","najpierw","potem",
-    "jeden","jedna","jedno","dwa","dwie","trzy","cztery","piec","szesc",
-    "wiele","wiele","kilka","kilku","kilkoma","troche","malo","duzo",
-    # Pronouns / determiners
-    "ten","ta","te","tego","tej","temu","tym","tych","tymi","tamten",
-    "tamta","tamte","tamtego","tamtej","ow","owa","owe","swoj","swoja",
-    "swoje","nasz","nasza","nasze","wasz","wasza","wasze","kazdy","kazda",
-    "kazde","kazde","zaden","zadna","zadne","sam","sama","samo","sami",
-    "inne","inny","inna","innych","innym","innymi","pewien","pewna","pewne",
-    # Question words
-    "kto","kogo","komu","kim","co","czego","czemu","czym","gdzie","kiedy",
-    "jak","dlaczego","skad","dokad","ile","ktory","ktora","ktore",
-    # Misc common words that aren't meaningful
-    "raz","razy","razem","nawet","jednak","chociaz","mimo","wprawdzie",
-    "przeciez","zreszta","owszem","otoz","mianowicie","czyli","albo","lub",
-    "ani","nie","tak","tak","nie","no","och","ach","hm","coz","otoz",
-    "wlasnie","akurat","juz","jeszcze","juz","sobie","sobie","tego",
-    "tego","wiec","wiec","przy","przy","jako","jako","przez","przez",
-    "przed","przed","nad","pod","bez","bez","okolo","kolo","wokol",
-    "sposrod","sposob","sposob","typ","forma","rzecz","sprawa","kwestia",
-    "punkt","miejsce","czas","dzien","rok","lat","lata","lat","roku",
-    "dnia","godz","godz","min","chwila","moment","okres","etap","faza",
+    "no","tu","tam","sobie","tylko","mi","my","ja","ty","on","ona","ono",
+    "oni","one","pan","pani","choc","kiedy","gdy","jesli","jezeli","aby",
+    "zeby","iz","az","lub","albo","ani","lecz","wiec","oraz","czyli","mimo",
+    "chociaz","jednakze","aczkolwiek","poniewaz","gdyz","skoro","zas","otoz",
+    "bowiem","przeto","zatem","tez","rowniez","nawet","juz","jeszcze","dopiero",
+    "mnie","mam","moja","moje","moim","moich","moj",
+    "twoj","twoja","twoje","twoim","twoich","twego","twej",
+    "swoj","swoja","swoje","swoim","swoich","swego","swej",
+    "nasz","nasza","nasze","naszym","naszych","naszego","naszej",
+    "wasz","wasza","wasze","waszym","waszych","waszego","waszej",
+    "ktos","czegos","czemu","komus","kims","nikim","niczym",
+    "siebie","sobie","soba","sie","się",
+    "tamten","tamta","tamte","tamtego","tamtej","tamtemu","tamtym","tamtych",
+    "taki","taka","takie","takiego","takiej","takiemu","takim","takich","takimi",
+    "tyle","tylku","tylu","tyloma",
+    "ktory","ktora","ktore","ktorego","ktorej","ktoremu","ktorym","ktorych","ktorymi",
+    "który","która","które","którego","której","któremu","którym","których","którymi",
+    "jaki","jaka","jakie","jakiego","jakiej","jakiemu","jakim","jakich","jakimi",
+    "kto","kogo","komu","kim","co","czego","czemu","czym","gdzie",
+    "jak","dlaczego","skad","dokad","ile","czyj","czyja","czyje",
+    "kazdy","kazda","kazde","kazdego","kazdej","kazdemu","kazdym","kazdych","kazdymi",
+    "każdy","każda","każde","każdego","każdej","każdemu","każdym","każdych","każdymi",
+    "zaden","zadna","zadne","żaden","żadna","żadne","zadnych","zadnymi",
+    "sam","sama","samo","samego","samej","samemu","samym","samych","samymi",
+    "inny","inna","inne","innego","innej","innemu","innym","innych","innymi",
+    "pewien","pewna","pewne","pewnego","pewnej","pewnemu","pewnym","pewnych",
+    "wszystek","wszystka","wszystko","wszystkiego","wszystkim","wszystkich","wszyscy","wszystkie",
+    "jestem","jestes","jest","jestesmy","jestescie","sa","bylem","bylam",
+    "byles","bylas","byl","byla","bylo","bylismy","byliscie","byli","byly",
+    "bede","bedziesz","bedzie","bedziemy","bedziecie","beda","byc","bedac",
+    "będę","będziesz","będzie","będziemy","będziecie","będą",
+    "byłem","byłam","byłeś","byłaś","był","była","było","byliśmy","byłyśmy","byli","były",
+    "mam","masz","ma","mamy","macie","maja","mają","mial","miala","mialo","mieli","mialy",
+    "miałem","miałam","miałeś","miałaś","miał","miała","miało","mieć","miec","mając",
+    "moge","mozesz","moze","mozemy","mozecie","moga","mogl","mogla","moglo","mogli","mogly",
+    "mogę","możesz","może","możemy","możecie","mogą","mógł","mogła","mogło","móc","mogąc",
+    "chce","chcesz","chcemy","chcecie","chca","chcial","chciala","chcialo","chcieli","chcialy",
+    "chcę","chcą","chciał","chciała","chciało","chcić","chcąc",
+    "wiem","wiesz","wie","wiemy","wiecie","wiedza","wiedzial","wiedza",
+    "wiedzą","wiedział","wiedziała","wiedzieli","wiedzieć","wiedząc",
+    "mowie","mowisz","mowi","mowimy","mowicie","mowia","mowil","mowila",
+    "mówię","mówisz","mówi","mówimy","mówią","mówił","mówiła","mówili","mówić","mówiąc",
+    "mysle","myslisz","mysli","myslimy","mysla","myslal","myslala",
+    "myślę","myślisz","myśli","myślimy","myślą","myślał","myślała","myśleli","myśleć","myśląc",
+    "widze","widzisz","widzi","widzimy","widza","widzial","widziala",
+    "widzę","widzą","widział","widziała","widzieli","widzieć","widząc",
+    "bardzo","bardziej","najbardziej","malo","mniej","duzo","wiecej",
+    "mało","więcej","dużo","troche","trochę","calkiem","całkiem",
+    "juz","już","jeszcze","dopiero","znowu","znów","zawsze","nigdy",
+    "czasem","czasami","czesto","często","rzadko","tutaj","wszedzie","wszędzie",
+    "gdzies","gdzieś","teraz","wtedy","potem","dawniej","kiedys","kiedyś",
+    "wlasnie","właśnie","jednak","jednakże","przeciez","przecież","nawet",
+    "jeden","jedna","jedno","dwa","dwie","dwu","trzy","cztery","piec","pięć",
+    "szesc","siedem","osiem","dziewiec","dziesiec","sto","tysiac","tysiąc",
+    "raz","razy","razem","sposob","sposób","typ","forma","rzecz","sprawa",
+    "kwestia","punkt","strona","czesc","część","rodzaj","przypadek","sytuacja",
+    "problem","temat","pytanie","odpowiedz","odpowiedź","sens","cel","skutek",
+    "wynik","efekt","rezultat","przyklad","przykład","pozycja","element","aspekt",
+    "chwila","moment","okres","etap","faza","rok","lata","lat","dnia","dzien","dzień",
+    "tydzien","tydzień","miesiac","miesiąc","pare","parę","kilka","kilku","kilkoma",
+    "wiele","wielu","malo","mało","sporo","zbyt","calkowicie","całkowicie",
+    "naprawde","naprawdę","dosyc","dosyć","raczej","chyba","pewnie","pewno",
+    "prawdopodobnie","oczywiscie","oczywiście","niestety","mozna","można",
+    "trzeba","warto","mozemy","można","mozna","bedzie","będzie","bylo","było",
+    "jest","jest","oraz","czyli","tzn","itp","itd","np","natomiast","tymczasem",
+    "podczas","pomimo","wbrew","zamiast","wobec","wedlug","według","zgodnie",
+    "stosownie","wzgledem","względem","odnosnie","odnośnie","jako","jakby",
+    "jakos","jakoś","podobnie","rownie","również","szczegolnie","szczególnie",
+    "zwlaszcza","zwłaszcza","przede","przede","ogole","ogóle","zupelnie","zupełnie",
+    "dokladnie","dokładnie","wlasciwie","właściwie","zasadniczo","generalnie",
+    "ogolnie","ogólnie","przede wszystkim","przede","wcale","prawie","niemal",
+    "ledwie","dopiero","juz","już","wciaz","wciąż","nadal","cigle","ciągle",
+    "stale","stały","ustawicznie","bezustannie","nieustannie",
 }
 
 
@@ -1249,42 +1268,17 @@ fetch('data.json').then(r => r.json()).then(data => {
     # Take up to 180 unique-post images, sorted by date newest first
     gallery_items = list(per_post.values())[:180]
 
-    print(f"  Downloading {len(gallery_items)} photos...")
-    downloaded = []
+    print(f"  Using {len(gallery_items)} photos from Blogger directly (no download needed)...")
 
-    for idx, item in enumerate(gallery_items):
-        try:
-            safe_slug = item["post_slug"][:40].replace("/", "-")
-            fname = f"photo_{idx:04d}_{safe_slug}.jpg"
-            fpath = OUTPUT_DIR / "galeria" / "photos" / fname
+    # Use Blogger URLs directly - no downloading needed
+    # Just verify they're accessible by checking a few
+    for item in gallery_items:
+        # Use full res URL for lightbox, thumb for grid
+        item["local_path"] = item["url"]
+        item["thumb_path"] = item["thumb_url"]
 
-            dl_headers = {
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-                "Accept-Language": "pl-PL,pl;q=0.9,en;q=0.8",
-                "Referer": "https://strachowka.blogspot.com/",
-                "sec-fetch-dest": "image",
-                "sec-fetch-mode": "no-cors",
-                "sec-fetch-site": "cross-site",
-            }
-
-            # Try full res first, fall back to thumb URL
-            for try_url in [item["url"], item["thumb_url"]]:
-                try:
-                    resp = requests.get(try_url, headers=dl_headers, timeout=20)
-                    if resp.status_code == 200 and len(resp.content) > 3000:
-                        fpath.write_bytes(resp.content)
-                        item["local_path"] = f"photos/{fname}"
-                        downloaded.append(item)
-                        break
-                except Exception:
-                    continue
-
-            if idx % 10 == 0:
-                print(f"    Processed {idx+1}/{len(gallery_items)}, downloaded {len(downloaded)} so far...")
-            time.sleep(0.4)
-        except Exception as e:
-            continue
+    downloaded = gallery_items
+    print(f"  Gallery ready with {len(downloaded)} photos")
 
     print(f"  Successfully downloaded {len(downloaded)} photos")
 
@@ -1450,13 +1444,15 @@ fetch('data.json').then(r => r.json()).then(data => {
     # Build gallery grid HTML
     grid_html = ""
     for item in downloaded:
+        thumb = item.get("thumb_path", item.get("local_path", ""))
+        full = item.get("local_path", thumb)
         grid_html += f"""
         <div class="gallery-item"
-             data-src="{item['local_path']}"
+             data-src="{full}"
              data-title="{item['post_title'][:80]}"
              data-date="{item['post_date']}"
              data-slug="{item['post_slug']}">
-          <img src="{item['local_path']}" alt="{item['post_title'][:60]}" loading="lazy">
+          <img src="{thumb}" alt="{item['post_title'][:60]}" loading="lazy">
           <div class="gallery-item-overlay">
             <div class="gallery-item-title">{item['post_title'][:80]}</div>
             <div class="gallery-item-date">{item['post_date']}</div>
