@@ -1,0 +1,32 @@
+name: Rebuild site nightly
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # runs every night at 2am UTC (3am Polish time)
+  workflow_dispatch:       # also lets you trigger it manually from GitHub
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Run scraper and build site
+        run: python scraper_and_generator.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./osobny_swiat_site
+          cname: osobnyswiat.pl
